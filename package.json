@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@types/react-dom": "18.2.15",
+    "@untitled-ui/icons-react": "^0.1.1",
     "autoprefixer": "10.4.16",
     "eslint": "8.53.0",
     "eslint-config-next": "14.0.2",
@@ -23,5 +24,9 @@
     "@types/node": "20.9.0",
     "@types/react": "18.2.37",
     "typescript": "5.2.2"
+  },
+  "devDependencies": {
+    "@types/feather-icons": "^4.29.4",
+    "daisyui": "^3.9.4"
   }
 }
