@@ -34,6 +34,12 @@ export default function AdminFrame() {
                 </div>
                 <div>
                     <label className="label">
+                        <span className="text-base label-text">Felhasználónév</span>
+                    </label>
+                    <input type="text" placeholder="Felhasználónév bejelentkezéshez" className="w-full input input-bordered" />
+                </div>
+                <div>
+                    <label className="label">
                         <span className="text-base label-text">Jelszó</span>
                     </label>
                     <input type="password" placeholder="Jelszó" className="w-full input input-bordered" />
@@ -58,7 +64,7 @@ export default function AdminFrame() {
                         className="w-full input input-bordered" />
                 </div>
                 <div className='pt-5'>
-                    <button className="btn w-full bg-green-900 hover:bg-green-700  ">Bejelentkezés</button>
+                    <button className="btn w-full bg-green-900 hover:bg-green-700  ">Felhasználó létrehozása</button>
                 </div>
             </form>
         </div>
