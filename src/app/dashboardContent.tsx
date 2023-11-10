@@ -7,7 +7,7 @@ import Sidebar from './sidebar';
 export default function dashboardContent() {
   return (
     <>
-asd
+
     </>
   )
 }
