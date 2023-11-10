@@ -10,11 +10,11 @@ export default function Login() {
             <form className='space-y-4'>
               <div>
                 <label className='label'>
-                  <span className='text-base label-text'>Név</span>
+                  <span className='text-base label-text'>Felhasználónév</span>
                 </label>
                 <input
                   type='text'
-                  placeholder='Teljes név'
+                  placeholder='Felhasználónév'
                   className='w-full input input-bordered'
                 />
               </div>
