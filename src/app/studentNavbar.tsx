@@ -7,6 +7,7 @@ export default function StudentNavbar() {
           </div>
           <div className="flex-none">
             <ul className="menu menu-horizontal px-1">
+              <li><a>Korábbi versenyek</a></li>
               <li>
                 <details>
                   <summary>
