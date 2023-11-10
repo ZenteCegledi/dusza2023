@@ -1,4 +1,4 @@
-import {Users01, ImageIndentLeft, PieChart01, UsersPlus, User01, Flag01, Hourglass01, UserPlus01, File02, File04, FilePlus03, Edit03} from "@untitled-ui/icons-react";
+import {Users01, ImageIndentLeft, PieChart01, UsersPlus, User01, Flag01, Hourglass01, UserPlus01, File02, File04, FilePlus03, Edit03, LogOut01, Home02} from "@untitled-ui/icons-react";
 
 
 export default function Sidebar() {
@@ -25,7 +25,10 @@ export default function Sidebar() {
             <li><a><Flag01/>Versenyek kezelése</a></li>
             <li className='pl-5'><a><Hourglass01/>((Aktuális verseny))</a></li>
             <li><a><UserPlus01/>Versenyző hozzáadása</a></li>
+            <hr className="h-px my-8 bg-gray-200 border-0 dark:bg-gray-700" />
             {/* <li className="absolute inset-x-0 bottom-0 h-16 pt-10"><a><LogOut01/>Kijelentkezés</a></li> */}
+            <li><a><Home02/>Bemutatkozó oldal</a></li>
+            <li><a><LogOut01/>Kijelentkezés</a></li>
           
           </ul>
         </div>
