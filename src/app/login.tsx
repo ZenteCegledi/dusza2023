@@ -11,9 +11,9 @@ export default function Home() {
             <form className="space-y-4">
                 <div>
                     <label className="label">
-                        <span className="text-base label-text">Név</span>
+                        <span className="text-base label-text">Felhasználónév</span>
                     </label>
-                    <input type="text" placeholder="Teljes név" className="w-full input input-bordered" />
+                    <input type="text" placeholder="Felhasználónév" className="w-full input input-bordered" />
                 </div>
                 <div className="pb-5">
                     <label className="label">
