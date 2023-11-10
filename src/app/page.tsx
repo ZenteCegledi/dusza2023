@@ -20,7 +20,7 @@ export default function AdminFrame() {
                     <label className="label">
                         <span className="text-base label-text">Versenyzők feltöltése (<a href='' className='text-blue-300'>minta</a>)</span>
                     </label>
-                    <input type="file" className="file-input file-input-bordered w-full max-w-xs" />
+                    <input type="file" className="file-input file-input-bordered " />
                 </div>
                 <div className="inline-flex items-center justify-center w-full">
                 <hr className="w-64 h-px my-2 bg-gray-200 border-0 dark:bg-gray-700"/>
