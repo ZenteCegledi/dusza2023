@@ -21,12 +21,8 @@
     "tailwindcss": "3.3.5"
   },
   "devDependencies": {
-    "@types/node": "20.9.0",
-    "@types/react": "18.2.37",
-    "typescript": "5.2.2"
-  },
-  "devDependencies": {
     "@types/feather-icons": "^4.29.4",
+    "@types/node": "20.9.0",
     "daisyui": "^3.9.4"
   }
 }

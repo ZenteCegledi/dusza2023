@@ -29,7 +29,6 @@ export default function Sidebar() {
             {/* <li className="absolute inset-x-0 bottom-0 h-16 pt-10"><a><LogOut01/>Kijelentkezés</a></li> */}
             <li><a><Home02/>Bemutatkozó oldal</a></li>
             <li><a><LogOut01/>Kijelentkezés</a></li>
-          
           </ul>
         </div>
     </>
