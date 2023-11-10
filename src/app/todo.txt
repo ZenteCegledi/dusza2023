@@ -1,0 +1,18 @@
+- Home Page
+# - Login
+# - Register
+- Webmester Dashboard
+- Webhely beállítása
+- Bemutatkozó oldal szerkesztése
+- Felhasználók kezelése
+# - Felhasználó hozzáadása
+- Csapatok kezelése
+- Csapat hozzáadása
+- Feladatok kezelése
+- Feladat hozzáadása
+- Feladatsorok kezelése
+- Bemutatkozó oldal
+- Saját hibás feladatok értesítés
+- Verseny végeredménye (zsűri)
+- Verseny saját eredmény
+- Játék felület
