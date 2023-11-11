@@ -1,4 +1,4 @@
-const { NextResponse } = require('next/server');
+import { NextResponse } from 'next/server';
 
 export async function GET() {
   const currentCompetitions: Competition[] = [

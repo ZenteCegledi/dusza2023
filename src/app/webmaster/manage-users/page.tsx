@@ -1,6 +1,6 @@
-import { Edit03, FilterFunnel01, Trash01, UserPlus02 } from '@untitled-ui/icons-react';
 'use client';
 
+import { Edit03, FilterFunnel01, Trash01, UserPlus02 } from '@untitled-ui/icons-react';
 import Link from 'next/link';
 import { useUsers } from '@/app/utils/hooks/users';
 import { useTeams } from '@/app/utils/hooks/teams';
