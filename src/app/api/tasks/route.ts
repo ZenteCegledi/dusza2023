@@ -30,7 +30,20 @@ export async function POST(request: Request) {
     return NextResponse.error();
   }
 
+  const db_task = await prisma.task.create({
+    data: {
+      grade: task.grade,
+    },
+  });
 
+  for (const word of task.words) {
+    await prisma.words.create({
+      data: {
+        word: word,
+        taskId: db_task.id
+      }
+    })
+  }
 
   console.log("Task", task);
 
