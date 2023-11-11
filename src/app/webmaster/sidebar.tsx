@@ -33,16 +33,16 @@ export default async function Sidebar() {
         </a>
       </li>
       <li>
-        <a>
+        <Link href='change-site'>
           <Edit03 />
           Webhely beállítása
-        </a>
+        </Link>
       </li>
       <li>
-        <a>
+        <Link href='./introduction-page-settings'>
           <ImageIndentLeft />
           Bemutatkozó oldal szereksztése
-        </a>
+        </Link>
       </li>
       <li>
         <Link href='/webmaster/manage-users'>
@@ -57,10 +57,10 @@ export default async function Sidebar() {
         </Link>
       </li>
       <li>
-        <a>
+        <Link href='./manage-teams'>
           <Users01 />
           Csapatok kezelése
-        </a>
+        </Link>
       </li>
       <li className='pl-5'>
         <Link href='/webmaster/add-team'>
@@ -70,21 +70,21 @@ export default async function Sidebar() {
       </li>
       <b className='pt-4 pb-2'>Tanár</b>
       <li>
-        <a>
+        <Link href='./manage-tasks'>
           <File04 />
           Feladatok kezelése
-        </a>
+        </Link>
       </li>
       <li className='pl-5'>
-        <a>
+        <Link href="./add-tasks">
           <FilePlus03 />
           Feladat hozzáadása
-        </a>
+        </Link>
       </li>
       <li>
-        <a>
+        <Link href='./manage-tasklists'>
           <File02 /> Feladatsorok kezelése
-        </a>
+        </Link>
       </li>
       <b className='pt-4 pb-2'>Zsűritag</b>
       <li>
