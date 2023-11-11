@@ -35,7 +35,7 @@ model Student {
   grade Int
   class String
   team Team? @relation(fields: [teamId], references: [id])
-  teamId Int? @unique
+  teamId Int?
 }
 
 model Teacher {
@@ -61,8 +61,8 @@ model Team {
 
 model Task{
   id Int @id @default(autoincrement())
-  taskList TaskList @relation(fields: [taskListId], references: [id])
-  taskListId Int @unique
+  taskList TaskList? @relation(fields: [taskListId], references: [id])
+  taskListId Int?
   words Words[]
   grade Int
 }
@@ -71,7 +71,7 @@ model Words { // MYSQL String[] Workaround
   id Int @id @default(autoincrement())
   word String
   task Task? @relation(fields: [taskId], references: [id])
-  taskId Int
+  taskId Int?
 }
 
 model TaskList {
