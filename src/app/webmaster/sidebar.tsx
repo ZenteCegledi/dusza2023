@@ -14,8 +14,8 @@ import {
   LogOut01,
   Home02,
 } from '@untitled-ui/icons-react';
-import { fetchSettings } from '@/app/utils/settings';
-import { fetchCurrentCompetitions } from '@/app/utils/competitions';
+import { fetchSettings } from '@/app/utils/fetchers/settings';
+import { fetchCurrentCompetitions } from '@/app/utils/fetchers/competitions';
 import Link from 'next/link';
 
 export default async function Sidebar() {

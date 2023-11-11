@@ -1,7 +1,4 @@
-import Navbar from '../../layout';
-import { fetchCompetition } from '@/app/utils/competitions';
-
-import { useRouter } from 'next/router';
+import { fetchCompetition } from '@/app/utils/fetchers/competitions';
 
 export default async function Countdown({
   params,

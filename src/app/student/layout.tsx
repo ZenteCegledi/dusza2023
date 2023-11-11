@@ -1,4 +1,4 @@
-import { fetchSettings } from '@/app/utils/settings';
+import { fetchSettings } from '@/app/utils/fetchers/settings';
 
 export default async function StudentLayout({
   children,

@@ -1,5 +1,5 @@
 import { Home02, LogIn02 } from '@untitled-ui/icons-react';
-import { fetchSettings } from '@/app/utils/settings';
+import { fetchSettings } from '@/app/utils/fetchers/settings';
 
 export default async function Home() {
   const settings = await fetchSettings();

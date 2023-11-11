@@ -1,7 +1,36 @@
 import { Edit03, FilterFunnel01, Trash01, UserPlus02 } from '@untitled-ui/icons-react';
+'use client';
+
 import Link from 'next/link';
+import { useUsers } from '@/app/utils/hooks/users';
+import { useTeams } from '@/app/utils/hooks/teams';
+import { deleteUser } from '@/app/utils/fetchers/users';
 
 export default function ManageUsers() {
+  const {
+    users,
+    isLoading: isUsersLoading,
+    isError: isUsersError,
+  } = useUsers();
+  const {
+    teams,
+    isLoading: isTeamsLoading,
+    isError: isTeamsError,
+  } = useTeams();
+
+  const isLoading = isUsersLoading || isTeamsLoading;
+  const isError = isUsersError || isTeamsError;
+
+  const handleDeleteUser = async (id: number) => {
+    const success = await deleteUser(id);
+
+    if (success) {
+      alert('Sikeresen törölted a felhasználót!');
+    } else {
+      alert('Hiba történt a felhasználó törlése közben!');
+    }
+  };
+
   return (
     <div className='overflow-x-auto m-5 p-3 bg-base-200 rounded-lg w-full'>
       <table className='table'>
@@ -39,56 +68,58 @@ export default function ManageUsers() {
           </tr>
         </thead>
         <tbody>
-          <tr className='hover:bg-gray-700'>
-            <th>1</th>
-            <td>Kovács Gábor</td>
-            <td>@kovacsg</td>
-            <td>Versenyző</td>
-            <td>Bug Bontó Brigád</td>
-            <td>9.B</td>
-            <td>
-              <button className='btn bg-yellow-900 hover:bg-yellow-700 mr-2 px-3'>
-                <Edit03 />
-              </button>
-              <button className='btn bg-red-900 hover:bg-red-700 px-3'>
-                <Trash01 />
-              </button>
-            </td>
-          </tr>
-
-          <tr className='hover:bg-gray-700'>
-            <th>2</th>
-            <td>Zsoltár Péter</td>
-            <td>@zsoltarpeti</td>
-            <td>Tanár</td>
-            <td>-</td>
-            <td>-</td>
-            <td>
-              <button className='btn bg-yellow-900 hover:bg-yellow-700 mr-2 px-3'>
-                <Edit03 />
-              </button>
-              <button className='btn bg-red-900 hover:bg-red-700 px-3'>
-                <Trash01 />
-              </button>
-            </td>
-          </tr>
-
-          <tr className='hover:bg-gray-700'>
-            <th>3</th>
-            <td>Markovics Márton</td>
-            <td>@mmarci</td>
-            <td>Zsűritag</td>
-            <td>-</td>
-            <td>-</td>
-            <td>
-              <button className='btn bg-yellow-900 hover:bg-yellow-700 mr-2 px-3'>
-                <Edit03 />
-              </button>
-              <button className='btn bg-red-900 hover:bg-red-700 px-3'>
-                <Trash01 />
-              </button>
-            </td>
-          </tr>
+          {isLoading && (
+            <tr>
+              <td colSpan={7} className='text-center'>
+                Betöltés...
+              </td>
+            </tr>
+          )}
+          {isError && (
+            <tr>
+              <td colSpan={7} className='text-center'>
+                Hiba történt a felhasználók betöltése közben.
+              </td>
+            </tr>
+          )}
+          {!isLoading &&
+            !isError &&
+            (users!.map((user) => (
+              <tr key={user.id} className='hover:bg-gray-700'>
+                <th>{user.id}</th>
+                <td>{user.name}</td>
+                <td>{user.username}</td>
+                <td>{user.role}</td>
+                <td>
+                  {user.role === 'student' && user.team
+                    ? teams!.find((team) => team.id === user.team)?.name ||
+                      'Hiba'
+                    : '-'}
+                </td>
+                <td>
+                  {user.role === 'student'
+                    ? `${user.grade}. ${user.class}`
+                    : '-'}
+                </td>
+                <td>
+                  <button className='btn bg-yellow-900 hover:bg-yellow-700 mr-2 px-3'>
+                    <Edit03 />
+                  </button>
+                  <button
+                    className='btn bg-red-900 hover:bg-red-700 px-3'
+                    onClick={() => handleDeleteUser(user.id)}
+                  >
+                    <Trash01 />
+                  </button>
+                </td>
+              </tr>
+            )) || (
+              <tr>
+                <td colSpan={7} className='text-center'>
+                  Nincsenek felhasználók
+                </td>
+              </tr>
+            ))}
           {/* <br /> */}
         </tbody>
       </table>

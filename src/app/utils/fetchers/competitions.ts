@@ -1,7 +1,10 @@
 export async function fetchCompetitions(): Promise<Competition[]> {
-  const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/competitions', {
-    cache: 'no-cache',
-  });
+  const res = await fetch(
+    process.env.NEXT_PUBLIC_API_URL + '/api/competitions',
+    {
+      cache: 'no-cache',
+    }
+  );
   if (!res.ok) {
     throw new Error(res.statusText);
   }
@@ -9,9 +12,12 @@ export async function fetchCompetitions(): Promise<Competition[]> {
 }
 
 export async function fetchCompetition(id: number): Promise<Competition> {
-  const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/competitions/' + id, {
-    cache: 'no-cache',
-  });
+  const res = await fetch(
+    process.env.NEXT_PUBLIC_API_URL + '/api/competitions/' + id,
+    {
+      cache: 'no-cache',
+    }
+  );
   if (!res.ok) {
     throw new Error(res.statusText);
   }
@@ -19,9 +25,12 @@ export async function fetchCompetition(id: number): Promise<Competition> {
 }
 
 export async function fetchCurrentCompetitions(): Promise<Competition[]> {
-  const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/competitions/now', {
-    cache: 'no-cache',
-  });
+  const res = await fetch(
+    process.env.NEXT_PUBLIC_API_URL + '/api/competitions/now',
+    {
+      cache: 'no-cache',
+    }
+  );
   if (!res.ok) {
     throw new Error(res.statusText);
   }
