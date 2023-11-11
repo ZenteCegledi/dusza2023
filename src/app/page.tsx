@@ -13,7 +13,7 @@ export default async function Home() {
           <div className='mt-10 mb-20'>
             <a
               className='btn bg-blue-600 hover:bg-blue-800 pl-10 pr-10 mr-5'
-              href='./login'
+              href='./login'  
             >
               <LogIn02 />
               Bejelentkezés
