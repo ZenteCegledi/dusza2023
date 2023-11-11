@@ -15,7 +15,18 @@ import {
   Home02,
 } from '@untitled-ui/icons-react';
 
-export default function Content() {
+async function fetchSettings() {
+  const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/settings');
+  if (!res.ok) {
+    throw new Error(res.statusText);
+  }
+  const data: Settings = await res.json();
+  return data;
+}
+
+export default async function Content() {
+  const data = await fetchSettings();
+
   return (
     <div className='drawer-side'>
       <label
@@ -24,8 +35,7 @@ export default function Content() {
         className='drawer-overlay'
       ></label>
       <ul className='menu p-4 w-80 min-h-full bg-base-200 text-base-content'>
-        {/* Sidebar content here*/}
-        <a className='btn btn-ghost normal-case text-xl'>((SiteName))</a>
+        <a className='btn btn-ghost normal-case text-xl'>{data.name}</a>
         <b className='pt-5 pb-2'>Webmester</b>
         <li>
           <a>

@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { validateTask } from "./validate";
 
 export async function GET() {
   const tasks: Task[] = [
@@ -14,6 +15,11 @@ export async function GET() {
 export async function POST(request: Request) {
   const task: Task = await request.json();
 
+  if (!validateTask(task)) {
+    return NextResponse.error();
+  }
+
   console.log("Task", task);
+
   return NextResponse.json(task);
 }

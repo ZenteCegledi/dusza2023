@@ -2,10 +2,10 @@ import { NextResponse } from "next/server";
 
 export async function GET() {
   const students: User[] = [
-    { id: 1, name: "John", role: "student" as Role.STUDENT, grade: 5, class: "A" },
-    { id: 2, name: "Jane", role: "student" as Role.STUDENT, grade: 5, class: "A" },
-    { id: 3, name: "Mr. Teacher", role: "teacher" as Role.TEACHER },
-    { id: 4, name: "Mrs. Jury", role: "jury" as Role.JURY },
+    { id: 1, name: "John", role: "student" as Role.STUDENT, grade: 5, class: "A", username: "john", team: 1 },
+    { id: 2, name: "Jane", role: "student" as Role.STUDENT, grade: 5, class: "A", username: "jane" },
+    { id: 3, name: "Mr. Teacher", role: "teacher" as Role.TEACHER, username: "teacher" },
+    { id: 4, name: "Mrs. Jury", role: "jury" as Role.JURY, username: "jury" },
   ];
 
   return NextResponse.json(students);
