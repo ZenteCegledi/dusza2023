@@ -1,5 +1,5 @@
 import { Home02, LogIn02 } from '@untitled-ui/icons-react';
-import { fetchSettings } from '@/app/utils/settings';
+import { fetchSettings } from '@/app/utils/fetchers/settings';
 import Link from "next/link";
 
 export default async function Home() {
@@ -14,7 +14,7 @@ export default async function Home() {
           <div className='mt-10 mb-20'>
             <Link
               className='btn bg-blue-600 hover:bg-blue-800 pl-10 pr-10 mr-5'
-              href='./login'
+              href='./login'  
             >
               <LogIn02 />
               Bejelentkezés

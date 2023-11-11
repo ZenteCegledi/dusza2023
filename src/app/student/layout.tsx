@@ -1,13 +1,19 @@
-import { fetchSettings } from '@/app/utils/settings';
+import { fetchSettings } from '@/app/utils/fetchers/settings';
 
-export default async function Navbar() {
+export default async function StudentLayout({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const settings = await fetchSettings();
 
   return (
-    <>
+    <div>
       <div className='navbar bg-base-100'>
         <div className='flex-1'>
-          <a className='btn btn-ghost normal-case text-xl' href='/'>{settings.name}</a>
+          <a className='btn btn-ghost normal-case text-xl' href='/'>
+            {settings.name}
+          </a>
         </div>
         <div className='flex-none'>
           <ul className='menu menu-horizontal px-1'>
@@ -27,6 +33,7 @@ export default async function Navbar() {
           </ul>
         </div>
       </div>
-    </>
+      {children}
+    </div>
   );
 }
