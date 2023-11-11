@@ -1,5 +1,6 @@
 'use client';
 
+import { PlusCircle } from '@untitled-ui/icons-react';
 import { useState } from 'react';
 
 export default function AddTeam() {
@@ -70,16 +71,30 @@ export default function AddTeam() {
           </div>
           {/* Hozzárendelt tanulók megjelenítése */}
           <div className='pt-3'>
-            <b>Versenyzők</b>
-            <ul className='px-3 pt-2 [&>*]:my-2 [&>*>*]:btn [&>*>*]:bg-teal-950 [&>*>*]:rounded-full [&>*>*]:h-1 [&>*>*]:min-h-0 [&>*>*]:pt-2 [&>*>*]:py-5 [&>*>*]:p-2 [&>*>*]:mr-3'>
+            <b>Adj hozzá versenyzőt</b>
+            <ul className='px-3 pt-2 [&>*]:my-2 [&>*>*]:btn [&>*>*]:bg-green-900 [&>*>*]:rounded-full [&>*>*]:h-1 [&>*>*]:min-h-0 [&>*>*]:pt-2 [&>*>*]:py-5 [&>*>*]:p-2 [&>*>*]:mr-3'>
               <li>
-                <button type='button'>X</button>Ceglédi Zente Holló (@ceglediz)
+              <button type='button' className="hover:bg-green-950">+</button>Ceglédi Zente Holló (@ceglediz)
               </li>
               <li>
-                <button type='button'>X</button>Császár Zoltán (@zoli06)
+              <button type='button' className="hover:bg-green-950">+</button>Császár Zoltán (@zoli06)
               </li>
               <li>
-                <button type='button'>X</button>Demeter Áron (@coffeelink)
+              <button type='button' className="hover:bg-green-950">+</button>Demeter Áron (@coffeelink)
+              </li>
+            </ul>
+          </div>
+          <div className='pt-3'>
+            <b>Hozzáadott versenyzők</b>
+            <ul className='px-3 pt-2 [&>*]:my-2 [&>*>*]:btn [&>*>*]:bg-red-900 [&>*>*]:rounded-full [&>*>*]:h-1 [&>*>*]:min-h-0 [&>*>*]:pt-2 [&>*>*]:py-5 [&>*>*]:p-2 [&>*>*]:mr-3'>
+              <li>
+              <button type='button' className="hover:bg-red-950">X</button>Ceglédi Zente Holló (@ceglediz)
+              </li>
+              <li>
+              <button type='button' className="hover:bg-red-950">X</button>Császár Zoltán (@zoli06)
+              </li>
+              <li>
+              <button type='button' className="hover:bg-red-950">X</button>Demeter Áron (@coffeelink)
               </li>
             </ul>
           </div>
