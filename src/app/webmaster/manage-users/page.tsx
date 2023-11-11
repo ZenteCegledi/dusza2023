@@ -1,9 +1,9 @@
-import { Edit03, FilterFunnel01, Trash01 } from '@untitled-ui/icons-react';
+import { Edit03, FilterFunnel01, Trash01, UserPlus02 } from '@untitled-ui/icons-react';
 import Link from 'next/link';
 
 export default function ManageUsers() {
   return (
-    <div className='overflow-x-auto m-5 p-3 bg-base-200 rounded-lg'>
+    <div className='overflow-x-auto m-5 p-3 bg-base-200 rounded-lg w-full'>
       <table className='table'>
         <tbody>
           <tr>
@@ -19,7 +19,7 @@ export default function ManageUsers() {
               </button>
 
               <Link href='./' className='btn bg-green-800 hover:bg-green-700'>
-                Felhasználó hozzáadása
+                Felhasználó hozzáadása <UserPlus02 />
               </Link>
             </td>
           </tr>
