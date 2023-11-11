@@ -1,7 +1,4 @@
-import {
-  Home02,
-  LogIn02,
-} from '@untitled-ui/icons-react';
+import { Home02, LogIn02 } from '@untitled-ui/icons-react';
 import { fetchSettings } from '@/app/utils/settings';
 
 export default async function Home() {
@@ -26,9 +23,8 @@ export default async function Home() {
             </a>
           </div>
         </div>
-        <p className="text-2xl pb-20">((Weboldal rövid leírása))</p>
-    </div>
-</div>
+        <p className='text-2xl pb-20'>((Weboldal rövid leírása))</p>
+      </div>
     </>
   );
 }
