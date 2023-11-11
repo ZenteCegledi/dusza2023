@@ -2,7 +2,6 @@ import Link from 'next/link'
 
 export default function ChangeSiteSettings() {
   return (
-    <>
       <div className="drawer lg:drawer-open">
         <input id="my-drawer-2" type="checkbox" className="drawer-toggle" />
         <div className="drawer-content flex flex-col items-center justify-center">
@@ -60,6 +59,5 @@ export default function ChangeSiteSettings() {
     </div>
         </div> 
       </div>
-    </>
   )
 }
