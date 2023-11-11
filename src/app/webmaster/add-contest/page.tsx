@@ -3,7 +3,6 @@
 export default function AddContest() {
 
   return (
-    <>
       <div className='w-full p-6 m-auto rounded-md shadow-md lg:max-w-lg bg-gray-900'>
         <h1 className='text-3xl font-semibold text-center text-white-700 pb-5 pt-4 px-8'>
           Verseny létrehozása
@@ -108,6 +107,5 @@ export default function AddContest() {
           </div>
         </form>
       </div>
-    </>
   );
 }

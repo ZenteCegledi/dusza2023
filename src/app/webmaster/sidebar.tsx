@@ -28,7 +28,7 @@ export default async function Sidebar() {
       <a className='btn btn-ghost normal-case text-xl'>{settings.name}</a>
       <b className='pt-5 pb-2'>Webmester</b>
       <li>
-        <Link href="./">
+        <Link href="./statistics">
           <PieChart01 />
           Statisztikák
         </Link>
