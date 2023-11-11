@@ -50,27 +50,29 @@ export async function PUT(request: Request) { // Update value
 
   let i = 0
   for (const word of words) {
-    await prisma.words.update({
+    if (!await prisma.words.update({
       where: {
         id: word.id
       },
       data: {
         word: task.words[i]
       }
-    })
+    })) {
+      return NextResponse.error() // Geci ronda tudom de ez mukszik
+    }
     i++
   }
   // Update Task
-  await prisma.task.update({
+  if (!await prisma.task.update({
     where: {
       id: task_db.id
     },
     data: {
       grade: task.grade
     }
-  });
-
-  // Return Task if success, Error if not TODO: prisma error check
+  })){
+    return NextResponse.error() // same here :/
+  }
 
   console.log("Task", task);
 
