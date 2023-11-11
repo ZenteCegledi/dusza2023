@@ -2,7 +2,6 @@ import { NextResponse } from "next/server";
 import { validateTask } from "../validate";
 import prisma from "@/lib/db";
 import {fitIntoGrades} from "@/app/utils/grades";
-import {bool} from "prop-types";
 
 export async function GET(request: Request) {
   const id: Task["id"] = request.url.slice(request.url.lastIndexOf("/") + 1);
