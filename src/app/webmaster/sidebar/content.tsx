@@ -16,6 +16,8 @@ import {
 } from '@untitled-ui/icons-react';
 import { fetchSettings } from '@/app/utils/settings';
 import { fetchCurrentCompetitions } from '@/app/utils/competitions';
+import Link from "next/link";
+
 
 export default async function Content() {
   const settings = await fetchSettings();
