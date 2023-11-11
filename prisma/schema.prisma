@@ -91,3 +91,11 @@ model Competition {
   taskList TaskList[]
   teams Team[]
 }
+
+model SiteSettings {
+  id Int @id @default(0)
+  name String @default("Rando Page")
+  descriprion String @default("")
+  slogan String
+  icon String
+}
