@@ -1,6 +1,3 @@
-import {Console} from "inspector";
-import {write} from "fs";
-
 export function validateTask(task: Omit<Task, "id">): boolean {
   if (task.words.length !== 4) {
     return false;
@@ -33,8 +30,6 @@ export function validateTask(task: Omit<Task, "id">): boolean {
     return false;
   }
 
-  if (task.grade < 5 || task.grade > 8) {
-    return false;
-  }
-  return true;
+  return !(task.grade < 5 || task.grade > 8); // Simplyfied grade check
+
 }

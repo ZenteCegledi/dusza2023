@@ -27,12 +27,14 @@ export async function GET(request: Request) {
   return NextResponse.json(task);
 }
 
-export async function PUT(request: Request) {
+export async function PUT(request: Request) { // Update value
   const task: Task = await request.json();
 
   if (!validateTask(task)) {
     return NextResponse.error();
   }
+
+
 
   console.log("Task", task);
 
