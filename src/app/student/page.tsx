@@ -1,9 +1,9 @@
-import Navbar from './navbar';
+import Navbar from './layout';
 
 export default function Student() {
   return (
-    <>
-      <Navbar />
-    </>
+    <div>
+      Some content ig
+    </div>
   );
 }
