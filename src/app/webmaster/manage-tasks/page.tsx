@@ -1,4 +1,4 @@
-import { Edit03, FilePlus02, FilterFunnel01, Trash01, UsersPlus } from '@untitled-ui/icons-react';
+import { Edit03, FilePlus02, FilterFunnel01, Trash01 } from '@untitled-ui/icons-react';
 import Link from 'next/link';
 
 export default function ManageTasks() {
