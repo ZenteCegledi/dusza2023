@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { useUsers } from '@/app/utils/hooks/users';
 import { useTeams } from '@/app/utils/hooks/teams';
 import { deleteUser } from '@/app/utils/fetchers/users';
+import AddUser from './../contents/add-user';
 
 export default function ManageUsers() {
   const {
@@ -47,7 +48,7 @@ export default function ManageUsers() {
                 Szűrés jogkörre <FilterFunnel01 />
               </button>
 
-              <Link href='./' className='btn bg-green-800 hover:bg-green-700'>
+              <Link href='./add-user' className='btn bg-green-800 hover:bg-green-700'>
                 Felhasználó hozzáadása <UserPlus02 />
               </Link>
             </td>
