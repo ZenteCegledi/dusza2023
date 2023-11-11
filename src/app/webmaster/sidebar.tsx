@@ -13,6 +13,7 @@ import {
   Edit03,
   LogOut01,
   Home02,
+  FilePlus02,
 } from '@untitled-ui/icons-react';
 import { fetchSettings } from '@/app/utils/fetchers/settings';
 import { fetchCurrentCompetitions } from '@/app/utils/fetchers/competitions';
@@ -84,6 +85,12 @@ export default async function Sidebar() {
       <li>
         <Link href='./manage-tasklists'>
           <File02 /> Feladatsorok kezelése
+        </Link>
+      </li>
+      <li className='pl-5'>
+        <Link href="./create-tasklist">
+          <FilePlus02 />
+          Feladatsor hozzáadása
         </Link>
       </li>
       <b className='pt-4 pb-2'>Zsűritag</b>
