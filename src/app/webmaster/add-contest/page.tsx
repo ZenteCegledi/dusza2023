@@ -72,15 +72,15 @@ export default function AddContest() {
           {/* Hozzárendelt csapatok megjelenítése */}
           <div className='pt-3'>
             <b>Résztvevő csapatok</b>
-            <ul className='px-3 pt-2 [&>*]:my-2 [&>*>*]:btn [&>*>*]:bg-teal-950 [&>*>*]:rounded-full [&>*>*]:h-1 [&>*>*]:min-h-0 [&>*>*]:pt-2 [&>*>*]:py-5 [&>*>*]:p-2 [&>*>*]:mr-3'>
+            <ul className='px-3 pt-2 [&>*]:my-2 [&>*>*]:btn [&>*>*]:bg-red-900 [&>*>*]:rounded-full [&>*>*]:h-1 [&>*>*]:min-h-0 [&>*>*]:pt-2 [&>*>*]:py-5 [&>*>*]:p-2 [&>*>*]:mr-3'>
               <li>
-                <button type='button'>X</button>Bug Bontó Brigád
+                <button type='button' className="hover:bg-red-950">X</button>Bug Bontó Brigád
               </li>
               <li>
-                <button type='button'>X</button>GitEgylet
+                <button type='button' className="hover:bg-red-950">X</button>GitEgylet
               </li>
               <li>
-                <button type='button'>X</button>VarLé 2.0
+                <button type='button' className="hover:bg-red-950">X</button>VarLé 2.0
               </li>
             </ul>
           </div>
