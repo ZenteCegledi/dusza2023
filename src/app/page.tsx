@@ -1,6 +1,6 @@
-import { BarChart09, Hand, Home01, Home02, LogIn02 } from "@untitled-ui/icons-react";
+import {Home02, LogIn02 } from "@untitled-ui/icons-react";
 
-export default function Login() {
+export default function Home() {
   return (
     <>
       <div className="mx-auto bg-base-100">
@@ -11,6 +11,7 @@ export default function Login() {
             <a className="btn bg-blue-600 hover:bg-blue-800 pl-10 pr-10 mr-5" href="./login"><LogIn02/>Bejelentkezés</a>
             <a className="btn bg-neutral-700 hover:bg-neutral-800 ml-5 pl-4 pr-4 text-white"><Home02/> Bemutatkozó oldal</a>
         </div>
+        <p className="text-2xl pb-20">((Weboldal rövid leírása))</p>
     </div>
 </div>
     </>
