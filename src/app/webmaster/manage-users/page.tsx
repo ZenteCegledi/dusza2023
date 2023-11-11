@@ -103,9 +103,9 @@ export default function ManageUsers() {
                     : '-'}
                 </td>
                 <td>
-                  <button className='btn bg-yellow-900 hover:bg-yellow-700 mr-2 px-3'>
+                  <Link className='btn bg-yellow-900 hover:bg-yellow-700 mr-2 px-3' href={`/webmaster/edit-user/${user.id}`}>
                     <Edit03 />
-                  </button>
+                  </Link>
                   <button
                     className='btn bg-red-900 hover:bg-red-700 px-3'
                     onClick={() => handleDeleteUser(user.id)}

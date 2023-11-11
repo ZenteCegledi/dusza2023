@@ -1,6 +1,6 @@
 'use client';
 import useSWR from 'swr';
-import { fetchUsers } from '../fetchers/users';
+import { fetchUsers, fetchUser } from '../fetchers/users';
 
 export function useUsers(): {
   users: User[] | undefined;
@@ -11,6 +11,20 @@ export function useUsers(): {
   const isError = !data && !isLoading;
   return {
     users: data,
+    isLoading,
+    isError,
+  };
+}
+
+export function useUser(id: User['id']): {
+  user: User | undefined;
+  isLoading: boolean;
+  isError: boolean;
+} {
+  const { data, isLoading } = useSWR<User>(`users/${id}`, () => fetchUser(id));
+  const isError = !data && !isLoading;
+  return {
+    user: data,
     isLoading,
     isError,
   };
