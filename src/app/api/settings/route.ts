@@ -1,7 +1,7 @@
 import {NextResponse} from "next/server";
 import prisma from "@/lib/db";
 
-export async function GET(request: Request) {
+export async function GET() {
   const settings: Settings = {
     name: "Random page",
     description: "Random description",
@@ -21,7 +21,7 @@ export async function GET(request: Request) {
    }));
   }
 
-  return NextResponse.json(result);
+  return NextResponse.json(settings);
 }
 
 export async function PUT(request: Request) {
