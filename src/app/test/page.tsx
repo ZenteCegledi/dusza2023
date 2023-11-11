@@ -4,7 +4,7 @@ export default async function Index() {
     return (
         <>
             <p>
-                { JSON.stringify(await prisma.words.findMany()) }
+                { JSON.stringify(await prisma.task.findMany()) }
             </p>
         </>
     );

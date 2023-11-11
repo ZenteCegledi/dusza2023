@@ -1,14 +1,28 @@
 import { NextResponse } from "next/server";
 import { validateTask } from "../validate";
+import prisma from "@/lib/db";
+import {fitIntoGrades} from "@/app/utils/grades";
+import {bool} from "prop-types";
 
 export async function GET(request: Request) {
   const id: Task["id"] = request.url.slice(request.url.lastIndexOf("/") + 1);
 
+  const task_info = await prisma.task.findFirst({where: {id: parseInt(id)}})
+
+  if (!task_info) {
+    return NextResponse.error()
+  }
+
   const task: Task = {
     id: parseInt(id),
-    words: ["word1", "word2", "word3", "word4"],
-    grade: 5,
+    words: [],
+    grade: fitIntoGrades(task_info.grade),
   };
+
+  const words_db = await prisma.words.findMany({where: { taskId: task_info.id }, select: {word: true}})
+  for (const wordsDbElement of words_db) {
+    task.words.push(wordsDbElement.word)
+  }
 
   return NextResponse.json(task);
 }
