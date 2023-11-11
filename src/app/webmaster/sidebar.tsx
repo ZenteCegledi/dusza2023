@@ -45,10 +45,10 @@ export default async function Sidebar() {
         </a>
       </li>
       <li>
-        <a>
+        <Link href='/webmaster/manage-users'>
           <User01 />
           Felhasználók kezelése
-        </a>
+        </Link>
       </li>
       <li className='pl-5'>
         <Link href='/webmaster/add-user'>
