@@ -5,19 +5,22 @@ type Settings = {
 };
 
 enum Role {
-  STUDENT = "student",
-  TEACHER = "teacher",
-  JURY = "jury",
+  STUDENT = 'student',
+  TEACHER = 'teacher',
+  JURY = 'jury',
 }
 
 type User = {
   id: int;
   name: string;
+  username: string;
+  password?: string;
 } & (
   | {
       role: Role.STUDENT;
       grade: number;
       class: string;
+      team?: Team['id'];
     }
   | {
       role: Role.TEACHER;
@@ -33,7 +36,8 @@ type Jury = Extract<User, { role: Role.JURY }>;
 
 type Team = {
   id: int;
-  students: Student["id"][];
+  name: string;
+  description: string;
 };
 
 type Grades = 5 | 6 | 7 | 8;
@@ -47,8 +51,8 @@ type Task = {
 type TaskList = {
   id: int;
   name: string;
-  tasks: Task["id"][];
-}
+  tasks: Task['id'][];
+};
 
 type Competition = {
   id: int;
@@ -57,6 +61,6 @@ type Competition = {
   grade: Grades;
   start: Date;
   end: Date;
-  tasklist: TaskList["id"];
-  teams: Team["id"][];
+  tasklist: TaskList['id'];
+  teams: Team['id'][];
 };

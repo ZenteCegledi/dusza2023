@@ -9,6 +9,8 @@ export async function GET(request: Request) {
     role: "student" as Role.STUDENT,
     grade: 5,
     class: "A",
+    username: "john",
+    team: 1,
   };
 
   return NextResponse.json(user);

@@ -1,6 +1,29 @@
-import Sidebar from '../sidebar/sidebar';
+'use client';
+
+import { useState } from 'react';
 
 export default function AddUser() {
+  const [name, setName] = useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+  const [role, setRole] = useState('student');
+
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/users', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ name, username, password, role } as User),
+    });
+    if (!res.ok) {
+      throw new Error(res.statusText);
+    }
+    const data = await res.json();
+    console.log(data);
+  }
+
   return (
     <>
       <div className='drawer lg:drawer-open'>
@@ -11,29 +34,7 @@ export default function AddUser() {
               <h1 className='text-3xl font-semibold text-center text-white-700 pb-5'>
                 Felhasználó létrehozása
               </h1>
-              <form className='space-y-4'>
-                <hr className=' h-px my-2 bg-gray-200 border-0 dark:bg-gray-700' />
-                <div className='pb-5'>
-                  <label className='label'>
-                    <span className='text-base label-text'>
-                      Versenyzők feltöltése (
-                      <a href='' className='text-blue-300'>
-                        minta
-                      </a>
-                      )
-                    </span>
-                  </label>
-                  <input
-                    type='file'
-                    className='file-input file-input-bordered '
-                  />
-                </div>
-                <div className='inline-flex items-center justify-center w-full'>
-                  <hr className='w-64 h-px my-2 bg-gray-200 border-0 dark:bg-gray-700' />
-                  <span className='absolute px-3 font-medium text-gray-900 -translate-x-1/2 bg-white left-1/2 dark:text-white dark:bg-gray-900'>
-                    vagy
-                  </span>
-                </div>
+              <form className='space-y-4' onSubmit={handleSubmit}>
                 <div>
                   <label className='label'>
                     <span className='text-base label-text'>Név</span>
@@ -42,6 +43,22 @@ export default function AddUser() {
                     type='text'
                     placeholder='Teljes név'
                     className='w-full input input-bordered'
+                    value={name}
+                    onChange={(e) => setName(e.target.value)}
+                    required
+                  />
+                </div>
+                <div>
+                  <label className='label'>
+                    <span className='text-base label-text'>Felhasználónév</span>
+                  </label>
+                  <input
+                    type='text'
+                    placeholder='Felhasználónév'
+                    className='w-full input input-bordered'
+                    value={username}
+                    onChange={(e) => setUsername(e.target.value)}
+                    required
                   />
                 </div>
                 <div>
@@ -52,37 +69,55 @@ export default function AddUser() {
                     type='password'
                     placeholder='Jelszó'
                     className='w-full input input-bordered'
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
                   />
                 </div>
                 <div>
                   <label className='label'>
                     <span className='text-base label-text'>Szerepkör</span>
                   </label>
-                  <select className='select select-bordered w-full'>
-                    <option disabled selected>
-                      Szerepkör kiválasztása
-                    </option>
-                    <option>Versenyző</option>
-                    <option>Tanár</option>
-                    <option>Zsűritag</option>
+                  <select
+                    className='select select-bordered w-full'
+                    value={role}
+                    onChange={(e) => setRole(e.target.value)}
+                    required
+                  >
+                    <option value='student'>Versenyző</option>
+                    <option value='webmaster'>Tanár</option>
+                    <option value='jury'>Zsűritag</option>
                   </select>
                 </div>
-                {/* Megjelenítés csak akkor, ha versenyző van kiválasztva! */}
-                <div>
-                  <label className='label'>
-                    <span className='text-base label-text'>
-                      Évfolyam és osztály
-                    </span>
-                  </label>
-                  <input
-                    type='text'
-                    placeholder='Évfolyam és osztály jele'
-                    className='w-full input input-bordered'
-                  />
-                </div>
+                {role === 'student' && (
+                  <>
+                    <div>
+                      <label className='label'>
+                        <span className='text-base label-text'>Évfolyam (5-8)</span>
+                      </label>
+                      <input
+                        type='number'
+                        placeholder='Évfolyam'
+                        className='w-full input input-bordered'
+                        required
+                      />
+                    </div>
+                    <div>
+                      <label className='label'>
+                        <span className='text-base label-text'>Osztály (A-Z)</span>
+                      </label>
+                      <input
+                        type='text'
+                        placeholder='Osztály'
+                        className='w-full input input-bordered'
+                        required
+                      />
+                    </div>
+                  </>
+                )}
                 <div className='pt-5'>
-                  <button className='btn w-full bg-green-900 hover:bg-green-700  '>
-                    Bejelentkezés
+                  <button className='btn w-full bg-green-900 hover:bg-green-700' type='submit'>
+                    Létrehozás
                   </button>
                 </div>
               </form>
