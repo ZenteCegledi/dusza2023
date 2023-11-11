@@ -48,7 +48,19 @@ export default function AddContest() {
           <div>
             <label className='label'>
               <span className='text-base label-text'>
-                Csapatok hozzárendelése (nem kötelező)
+                Feladatsor hozzárendelése
+              </span>
+            </label>
+            <input
+              type='text'
+              placeholder='Keresés'
+              className='w-full input input-bordered'
+            />
+          </div>
+          <div>
+            <label className='label'>
+              <span className='text-base label-text'>
+                Csapatok hozzárendelése
               </span>
             </label>
             <input
