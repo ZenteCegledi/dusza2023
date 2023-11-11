@@ -5,7 +5,6 @@ import Link from 'next/link';
 import { useUsers } from '@/app/utils/hooks/users';
 import { useTeams } from '@/app/utils/hooks/teams';
 import { deleteUser } from '@/app/utils/fetchers/users';
-import AddUser from './../contents/add-user';
 
 export default function ManageUsers() {
   const {
