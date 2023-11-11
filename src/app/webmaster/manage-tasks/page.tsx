@@ -1,9 +1,34 @@
-import { Edit03, FilePlus02, FilterFunnel01, Trash01 } from '@untitled-ui/icons-react';
+'use client';
+
+import {
+  Edit03,
+  FilePlus02,
+  FilterFunnel01,
+  Trash01,
+} from '@untitled-ui/icons-react';
 import Link from 'next/link';
+import { useTasks } from '@/app/utils/hooks/tasks';
+import { deleteTask } from '@/app/utils/fetchers/tasks';
 
 export default function ManageTasks() {
+  const { tasks, isLoading, isError } = useTasks();
+
+  if (isLoading) return <div>Betöltés...</div>;
+  if (isError) return <div>Hiba történt a feladatok betöltése közben.</div>;
+  if (!tasks) return <div>Nincsenek feladatok</div>;
+
+  const handleDeleteTask = async (id: number) => {
+    const success = await deleteTask(id);
+
+    if (success) {
+      alert('Sikeresen törölted a feladatot!');
+    } else {
+      alert('Hiba történt a feladat törlése közben!');
+    }
+  };
+
   return (
-    <div className='overflow-x-auto m-5 p-3 bg-base-200 rounded-lg w-full'>
+    <div className='overflow-x-auto m-5 p-3 bg-base-200 rounded-lg'>
       <table className='table'>
         <tbody>
           <tr>
@@ -12,7 +37,7 @@ export default function ManageTasks() {
               <h1 className='text-3xl '>Feladatok kezelése</h1>
             </td>
             <td className='flex justify-end pb-4'>
-            <button
+              <button
                 className='btn bg-blue-800 hover:bg-blue-600 mr-3'
                 id='filterButton'
               >
@@ -38,51 +63,27 @@ export default function ManageTasks() {
           </tr>
         </thead>
         <tbody>
-          <tr className='hover:bg-gray-700'>
-            <th>1</th>
-            <td>egér, billentyűzet, nyomtató, kamera</td>
-            <td>6</td>
-            <td>Fülöp Márta Marianna</td>
-            <td>
-              <span className='text-gray-500'>Nincs hozzárendelve</span>
-            </td>
-            <td><button className='btn bg-yellow-900 hover:bg-yellow-700 mr-2 px-3'>
-                <Edit03 />
-              </button>
-              <button className='btn bg-red-900 hover:bg-red-700 px-3'>
-                <Trash01 />
-              </button></td>
-          </tr>
-          <tr className='hover:bg-gray-700'>
-            <th>2</th>
-            <td>alma, körte, szilva, ananász</td>
-            <td>5</td>
-            <td>Dorogházi Donát</td>
-            <td>
-            Dusza 2023
-            </td>
-            <td><button className='btn bg-yellow-900 hover:bg-yellow-700 mr-2 px-3'>
-                <Edit03 />
-              </button>
-              <button className='btn bg-red-900 hover:bg-red-700 px-3'>
-                <Trash01 />
-              </button></td>
-          </tr>
-          <tr className='hover:bg-gray-700'>
-            <th>3</th>
-            <td>logaritmus, hatványozás, analízis, trigonometria</td>
-            <td>8</td>
-            <td>Dorogházi Donát</td>
-            <td>
-              Dusza 2023
-            </td>
-            <td><button className='btn bg-yellow-900 hover:bg-yellow-700 mr-2 px-3'>
-                <Edit03 />
-              </button>
-              <button className='btn bg-red-900 hover:bg-red-700 px-3'>
-                <Trash01 />
-              </button></td>
-          </tr>
+          {tasks.map((task) => (
+            <tr className='hover:bg-gray-700' key={task.id}>
+              <th>{task.id}</th>
+              <td>{task.words.join(', ')}</td>
+              <td>{task.grade}</td>
+              <td>{task.creatorTeacher}</td>
+              <td>((Feladatsor))</td>
+
+              <td>
+                <Link className='btn bg-yellow-900 hover:bg-yellow-700 mr-2 px-3' href={`/webmaster/change-task/${task.id}`}>
+                  <Edit03 />
+                </Link>
+                <button
+                  className='btn bg-red-900 hover:bg-red-700 px-3'
+                  onClick={() => handleDeleteTask(task.id)}
+                >
+                  <Trash01 />
+                </button>
+              </td>
+            </tr>
+          ))}
 
           {/* <br /> */}
         </tbody>

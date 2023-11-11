@@ -1,8 +1,8 @@
 import Link from 'next/link';
 
-export default function AdminFrame() {
+export default function AddTask() {
   return (
-    <div className='w-full p-6 m-auto bg-black rounded-md shadow-md lg:max-w-lg bg-gray-900'>
+    <div className='w-full p-6 m-auto rounded-md shadow-md lg:max-w-lg bg-gray-900'>
       <h1 className='text-3xl font-semibold text-center text-white-700 pb-5'>
         Feladatok feltöltése
       </h1>

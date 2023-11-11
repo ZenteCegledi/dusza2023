@@ -47,6 +47,7 @@ type Task = {
   id: int;
   words: string[];
   grade: Grades;
+  creatorTeacher: Teacher['id'];
 };
 
 type TaskList = {

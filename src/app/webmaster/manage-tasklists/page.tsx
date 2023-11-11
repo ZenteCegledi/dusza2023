@@ -1,7 +1,27 @@
+'use client';
+
 import { Edit03, FilePlus02, Trash01 } from '@untitled-ui/icons-react';
 import Link from 'next/link';
+import { useTasklists } from '@/app/utils/hooks/tasklists';
+import { deleteTasklist } from '@/app/utils/fetchers/tasklists';
 
 export default function ManageTaskLists() {
+  const { tasklists, isLoading, isError } = useTasklists();
+
+  if (isLoading) return <div>Betöltés...</div>;
+  if (isError) return <div>Hiba történt a feladatsorok betöltése közben.</div>;
+  if (!tasklists) return <div>Nincsenek feladatsorok</div>;
+
+  const handleDeleteTasklist = async (id: number) => {
+    const success = await deleteTasklist(id);
+
+    if (success) {
+      alert('Sikeresen törölted a feladatsort!');
+    } else {
+      alert('Hiba történt a feladatsor törlése közben!');
+    }
+  }
+
   return (
     <div className='overflow-x-auto m-5 p-3 bg-base-200 rounded-lg w-full'>
       <table className='table'>
@@ -30,18 +50,22 @@ export default function ManageTaskLists() {
           </tr>
         </thead>
         <tbody>
-          <tr className='hover:bg-gray-700'>
-            <th>1</th>
-            <td>2023-mas versenyek feladatsora</td>
-            <td>Dusza 2023</td>
-            <td>9</td>
-            <td><button className='btn bg-yellow-900 hover:bg-yellow-700 mr-2 px-3'>
-                <Edit03 />
-              </button>
-              <button className='btn bg-red-900 hover:bg-red-700 px-3'>
-                <Trash01 />
-              </button></td>
-          </tr>
+          {tasklists.map((tasklist) => (
+            <tr key={tasklist.id} className='hover:bg-gray-700'>
+              <th>{tasklist.id}</th>
+              <td>{tasklist.name}</td>
+              <td>((Competition id))</td>
+              <td>{tasklist.tasks.length}</td>
+              <td>
+                <button className='btn bg-yellow-900 hover:bg-yellow-700 mr-2 px-3'>
+                  <Edit03 />
+                </button>
+                <button className='btn bg-red-900 hover:bg-red-700 px-3' onClick={() => handleDeleteTasklist(tasklist.id)}>
+                  <Trash01 />
+                </button>
+              </td>
+            </tr>
+          ))}
         </tbody>
       </table>
     </div>

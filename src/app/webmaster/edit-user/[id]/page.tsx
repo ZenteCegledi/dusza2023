@@ -4,8 +4,8 @@ import AddOrEditUser from '@/app/webmaster/utils/add-or-edit-user';
 import { updateUser } from '@/app/utils/fetchers/users';
 import { useUser } from '@/app/utils/hooks/users';
 
-export default function EditUser() {
-  const { user, isLoading, isError } = useUser(2);
+export default function EditUser({ params }: { params: { id: User['id'] } }) {
+  const { user, isLoading, isError } = useUser(params.id);
 
   const handleSubmit = async ({
     name,

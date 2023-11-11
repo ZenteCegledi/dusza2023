@@ -1,3 +1,4 @@
+'use client';
 import useSWR from "swr";
 import { fetchCompetitions, fetchCompetition, fetchCurrentCompetitions } from "../fetchers/competitions";
 

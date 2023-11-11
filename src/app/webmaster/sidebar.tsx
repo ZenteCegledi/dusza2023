@@ -34,15 +34,15 @@ export default async function Sidebar() {
         </Link>
       </li>
       <li>
-        <Link href='change-site'>
+        <Link href='/webmaster/change-site'>
           <Edit03 />
           Webhely beállítása
         </Link>
       </li>
       <li>
-        <Link href='./introduction-page-settings'>
+        <Link href='/webmaster/introduction-page-settings'>
           <ImageIndentLeft />
-          Bemutatkozó oldal szereksztése
+          Bemutatkozó oldal szerkesztése
         </Link>
       </li>
       <li>
@@ -58,7 +58,7 @@ export default async function Sidebar() {
         </Link>
       </li>
       <li>
-        <Link href='./manage-teams'>
+        <Link href='/webmaster/manage-teams'>
           <Users01 />
           Csapatok kezelése
         </Link>
@@ -71,19 +71,19 @@ export default async function Sidebar() {
       </li>
       <b className='pt-4 pb-2'>Tanár</b>
       <li>
-        <Link href='./manage-tasks'>
+        <Link href='/webmaster/manage-tasks'>
           <File04 />
           Feladatok kezelése
         </Link>
       </li>
       <li className='pl-5'>
-        <Link href="./add-tasks">
+        <Link href="/webmaster/add-tasks">
           <FilePlus03 />
           Feladat hozzáadása
         </Link>
       </li>
       <li>
-        <Link href='./manage-tasklists'>
+        <Link href='/webmaster/manage-tasklists'>
           <File02 /> Feladatsorok kezelése
         </Link>
       </li>
@@ -109,10 +109,10 @@ export default async function Sidebar() {
         ))}
       </li>
       <li>
-        <a>
+        <Link href='/webmaster/add-user'>
           <UserPlus01 />
           Versenyző hozzáadása
-        </a>
+        </Link>
       </li>
       <hr className='h-px my-8 bg-gray-200 border-0 dark:bg-gray-700' />
       {/* <li className="absolute inset-x-0 bottom-0 h-16 pt-10"><a><LogOut01/>Kijelentkezés</a></li> */}

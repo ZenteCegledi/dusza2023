@@ -12,6 +12,18 @@ export async function GET() {
   return NextResponse.json(tasks);
 }
 
+export async function PUT(request: Request) {
+  const task: Task = await request.json();
+
+  if (!validateTask(task)) {
+    return NextResponse.error();
+  }
+
+  console.log("Task", task);
+
+  return NextResponse.json(task);
+}
+
 export async function POST(request: Request) {
   const task: Omit<Task, "id"> = await request.json();
 
