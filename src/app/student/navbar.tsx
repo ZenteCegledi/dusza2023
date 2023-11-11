@@ -1,9 +1,13 @@
-export default function Navbar() {
+import { fetchSettings } from '@/app/utils/settings';
+
+export default async function Navbar() {
+  const settings = await fetchSettings();
+
   return (
     <>
       <div className='navbar bg-base-100'>
         <div className='flex-1'>
-          <a className='btn btn-ghost normal-case text-xl'>((SiteName))</a>
+          <a className='btn btn-ghost normal-case text-xl' href='/'>{settings.name}</a>
         </div>
         <div className='flex-none'>
           <ul className='menu menu-horizontal px-1'>

@@ -1,4 +1,4 @@
-export function validateTask(task: Task): boolean {
+export function validateTask(task: Omit<Task, "id">): boolean {
   if (task.words.length !== 4) {
     return false;
   }

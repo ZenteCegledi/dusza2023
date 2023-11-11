@@ -8,7 +8,7 @@ export async function GET() {
       description: 'Description 1',
       grade: 5,
       tasklist: 1,
-      start: new Date(Date.now()),
+      start: new Date(),
       end: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
       teams: [1, 2, 3, 4],
     },
@@ -18,7 +18,7 @@ export async function GET() {
       description: 'Description 2',
       grade: 5,
       tasklist: 1,
-      start: new Date(Date.now()),
+      start: new Date(),
       end: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
       teams: [1, 2, 3, 4],
     },
@@ -28,7 +28,7 @@ export async function GET() {
       description: 'Description 3',
       grade: 5,
       tasklist: 1,
-      start: new Date(Date.now()),
+      start: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7),
       end: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
       teams: [1, 2, 3, 4],
     },
@@ -38,17 +38,19 @@ export async function GET() {
       description: 'Description 4',
       grade: 5,
       tasklist: 1,
-      start: new Date(Date.now()),
+      start: new Date(),
       end: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
       teams: [1, 2, 3, 4],
     },
   ];
 
+  console.log('Competition', competitions[2]);
+
   return NextResponse.json(competitions);
 }
 
 export async function POST(request: Request) {
-  const competition: Competition = await request.json();
+  const competition: Omit<Competition, 'id'> = await request.json();
 
   console.log('Competition', competition);
   return NextResponse.json(competition);

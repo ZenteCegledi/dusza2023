@@ -4,6 +4,7 @@ export async function GET(request: Request) {
   const settings: Settings = {
     name: "Random page",
     description: "Random description",
+    slogan: "Random slogan",
     icon: "https://www.google.com/favicon.ico",
   };
 

@@ -14,18 +14,12 @@ import {
   LogOut01,
   Home02,
 } from '@untitled-ui/icons-react';
-
-async function fetchSettings() {
-  const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/settings');
-  if (!res.ok) {
-    throw new Error(res.statusText);
-  }
-  const data: Settings = await res.json();
-  return data;
-}
+import { fetchSettings } from '@/app/utils/settings';
+import { fetchCurrentCompetitions } from '@/app/utils/competitions';
 
 export default async function Content() {
-  const data = await fetchSettings();
+  const settings = await fetchSettings();
+  const currentCompetitions = await fetchCurrentCompetitions();
 
   return (
     <div className='drawer-side'>
@@ -35,7 +29,7 @@ export default async function Content() {
         className='drawer-overlay'
       ></label>
       <ul className='menu p-4 w-80 min-h-full bg-base-200 text-base-content'>
-        <a className='btn btn-ghost normal-case text-xl'>{data.name}</a>
+        <a className='btn btn-ghost normal-case text-xl'>{settings.name}</a>
         <b className='pt-5 pb-2'>Webmester</b>
         <li>
           <a>
@@ -104,10 +98,12 @@ export default async function Content() {
           </a>
         </li>
         <li className='pl-5'>
-          <a>
-            <Hourglass01 />
-            ((Aktuális verseny))
-          </a>
+          {currentCompetitions.map((competition) => (
+            <a key={competition.id}>
+              <Hourglass01 />
+              {competition.name}
+            </a>
+          ))}
         </li>
         <li>
           <a>

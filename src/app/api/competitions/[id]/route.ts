@@ -9,7 +9,7 @@ export async function GET(request: Request) {
     description: "Description 1",
     grade: 5,
     tasklist: 1,
-    start: new Date(Date.now()),
+    start: new Date(),
     end: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
     teams: [1, 2, 3, 4],
   };

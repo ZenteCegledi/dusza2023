@@ -1,11 +1,15 @@
-export default function Login() {
+import { fetchSettings } from '@/app/utils/settings';
+
+export default async function Login() {
+  const settings = await fetchSettings();
+
   return (
     <>
       <div className='h-screen bg-base-100'>
         <div className='relative flex flex-col justify-center h-screen overflow-hidden'>
           <div className='w-full p-6 m-auto bg-black rounded-md shadow-md lg:max-w-lg'>
             <h1 className='text-3xl font-semibold text-center text-white-700'>
-              ((SiteName))
+              {settings.name}
             </h1>
             <form className='space-y-4'>
               <div>

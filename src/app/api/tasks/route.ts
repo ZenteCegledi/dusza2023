@@ -13,7 +13,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const task: Task = await request.json();
+  const task: Omit<Task, "id"> = await request.json();
 
   if (!validateTask(task)) {
     return NextResponse.error();

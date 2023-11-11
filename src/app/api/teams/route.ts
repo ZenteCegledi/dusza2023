@@ -12,7 +12,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const team: Team = await request.json();
+  const team: Omit<Team, "id"> = await request.json();
 
   console.log("Team", team);
   return NextResponse.json(team);

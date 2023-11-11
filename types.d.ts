@@ -1,5 +1,6 @@
 type Settings = {
   name: string;
+  slogan: string;
   description: string;
   icon: string;
 };

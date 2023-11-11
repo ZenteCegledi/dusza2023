@@ -1,6 +1,9 @@
 import Navbar from '../navbar';
+import { fetchCompetition } from '@/app/utils/competitions';
 
 export default function Countdown() {
+
+  
   return (
     <>
       <Navbar />

@@ -12,7 +12,7 @@ export async function GET() {
 }
 
 export async function POST(request: Request) {
-  const tasklist: TaskList = await request.json();
+  const tasklist: Omit<TaskList, "id"> = await request.json();
 
   console.log("Tasklist", tasklist);
   return NextResponse.json(tasklist);
