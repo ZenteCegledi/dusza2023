@@ -33,7 +33,44 @@ export async function PUT(request: Request) { // Update value
     return NextResponse.error();
   }
 
+  // Validate Existence of Task
+  const task_db = await prisma.task.findFirst({
+    where: {
+      id: task.id
+    }
+  })
 
+  if (!task_db) {
+    return NextResponse.error()
+  }
+
+  // Update Words
+  const words = await prisma.words.findMany({where: {taskId: task.id}})
+  words.sort((a, b) => b.id - a.id) // Sort based on ID
+
+  let i = 0
+  for (const word of words) {
+    await prisma.words.update({
+      where: {
+        id: word.id
+      },
+      data: {
+        word: task.words[i]
+      }
+    })
+    i++
+  }
+  // Update Task
+  await prisma.task.update({
+    where: {
+      id: task_db.id
+    },
+    data: {
+      grade: task.grade
+    }
+  });
+
+  // Return Task if success, Error if not TODO: prisma error check
 
   console.log("Task", task);
 
@@ -42,6 +79,19 @@ export async function PUT(request: Request) { // Update value
 
 export async function DELETE(request: Request) {
   const id: Task["id"] = request.url.slice(request.url.lastIndexOf("/") + 1);
+
+  // Del words
+  await prisma.words.deleteMany({
+    where: {
+      taskId: id
+    }
+  })
+
+  await prisma.task.delete({
+    where: {
+      id: id
+    }
+  })
 
   console.log("Delete task", id);
   return NextResponse.json({ id: parseInt(id) });
