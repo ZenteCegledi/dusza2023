@@ -1,4 +1,5 @@
 import { fetchSettings } from '@/app/utils/fetchers/settings';
+import { Clock, ClockStopwatch, List } from '@untitled-ui/icons-react';
 
 export default async function Contest() {
   const settings = await fetchSettings();
@@ -33,8 +34,8 @@ export default async function Contest() {
               Következő feladat (utolsó oldalon BEKÜLDÉS)!!!
             </button>
             <div className='flex items-center justify-center'>
-            <div className='mt-3 mx-1 btn bg-yellow-950 hover:bg-yellow-900'>Jelenlegi feladat: 1/3</div>
-            <div className='mt-3 mx-1 btn bg-zinc-700 hover:bg-zinc-600'>Idő: 2:31</div>
+            <div className='mt-3 mx-1 btn bg-yellow-950 hover:bg-yellow-900'><List/> Jelenlegi feladat: 1/3</div>
+            <div className='mt-3 mx-1 btn bg-zinc-700 hover:bg-zinc-600'><ClockStopwatch/>Idő: 2:31</div>
           </div>
           </div>
         </form>
