@@ -23,6 +23,12 @@ export async function GET() {
 export async function POST(request: Request) {
   const tasklist: Omit<TaskList, "id"> = await request.json();
 
+  await prisma.taskList.create({
+    data: {
+      name: tasklist.name,
+    }
+  })
+
   console.log("Tasklist", tasklist);
   return NextResponse.json(tasklist);
 }
