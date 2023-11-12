@@ -31,6 +31,8 @@ export async function PUT(request: Request) {
 export async function DELETE(request: Request) {
   const id: Task["id"] = request.url.slice(request.url.lastIndexOf("/") + 1);
 
+  await prisma.taskList.delete({where: {id: parseInt(id)}})
+
   console.log("Delete task", id);
   return NextResponse.json({ id: parseInt(id) });
 }
