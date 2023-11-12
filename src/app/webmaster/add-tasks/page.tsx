@@ -26,13 +26,19 @@ export default function AddTask() {
       return;
     }
 
+    console.log(tasksArray);
+
     const functions = [];
-    for (let i = 0; i < tasksArrayLength; i += 3) {
+    for (let i = 0; i < tasksArray.length; i++) {
+      // remove duplicate spaces
+      tasksArray[i] = tasksArray[i].replace(/\s\s+/g, ' ');
+
       // remove last
       const words = tasksArray[i].split(' ').slice(0, -1);
 
       if (words.length !== 4) {
-        alert('A feladatnak pontosan 4 szóból kell állnia!');
+        console.log(words);
+        alert('A feladatnak pontosan 4 szóból kell állnia! Ennyi szót találtam: ' + words.length + ' (' + words.join(' ') + ')');
         return;
       }
 

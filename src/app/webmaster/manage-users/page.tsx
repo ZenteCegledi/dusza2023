@@ -47,7 +47,7 @@ export default function ManageUsers() {
                 Szűrés jogkörre <FilterFunnel01 />
               </button>
 
-              <Link href='./add-user' className='btn bg-green-800 hover:bg-green-700'>
+              <Link href='/webmaster/add-user' className='btn bg-green-800 hover:bg-green-700'>
                 Felhasználó hozzáadása <UserPlus02 />
               </Link>
             </td>

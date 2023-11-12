@@ -3,7 +3,7 @@ import {fitIntoGrades} from "@/app/utils/grades";
 import prisma from "@/lib/db";
 
 export async function GET(request: Request) {
-  const id: Competition["id"] = request.url.slice(request.url.lastIndexOf("/") + 1);
+  const id: Competition["id"] = parseInt(request.url.slice(request.url.lastIndexOf("/") + 1));
 
   const dbCompetition = await prisma.competition.findFirst({ where: { id: parseInt(id) }, include: {teams: true, taskList: true} })
   if (!dbCompetition) { return NextResponse.error() }
@@ -35,7 +35,7 @@ export async function GET(request: Request) {
 export async function PUT(request: Request) {
   const competition: Competition = await request.json();
 
-  const OriginalDBState = await prisma.competition.findFirst({where: {id: competition.id }, include: {teams: true, taskList: true} } );
+  const OriginalDBState = await prisma.competition.findFirst({where: {id: parseInt(competition.id) }, include: {teams: true, taskList: true} } );
   if (!OriginalDBState) { return NextResponse.error() }
 
   const teams : number[] = []
@@ -55,13 +55,13 @@ export async function PUT(request: Request) {
   }
   const taskListID = taskList.id
 
-  const comp = await prisma.competition.update({where: {id: competition.id}, data: {
+  const comp = await prisma.competition.update({where: {id: parseInt(competition.id)}, data: {
       name: competition.name,
       description: competition.description,
-      grade: competition.grade,
+      grade: 5,
       taskList: {
-        connect: {id: competition.tasklist},
-        disconnect: {id: taskListID}
+        connect: {id: parseInt(competition.tasklist)},
+        disconnect: {id: parseInt(taskListID.toString())}
       },
       start: competition.start,
       end: competition.end,
@@ -71,11 +71,11 @@ export async function PUT(request: Request) {
 
   // Disconnect all teams
   for (const team of teams) {
-    await prisma.team.update({where: {id: team}, data: { completions: { disconnect: { id: comp.id } } } });
+    await prisma.team.update({where: {id: parseInt(team.toString())}, data: { completions: { disconnect: { id: parseInt(comp.id.toString()) } } } });
   }
   // Connect new teams
   for (const newTeam of newTeams) {
-    await prisma.team.update({where: {id: newTeam}, data: { completions: { connect: { id: comp.id } } } } );
+    await prisma.team.update({where: {id: parseInt(newTeam.toString())}, data: { completions: { connect: { id: parseInt(comp.id.toString()) } } } } );
   }
 
 
@@ -96,7 +96,7 @@ export async function DELETE(request: Request) {
   }
   const taskListID = taskList.id
 
-  await prisma.taskList.update({where: {id: taskListID }, data: {completions: {disconnect: {id: comp.id} } } } );
+  await prisma.taskList.update({where: {id: parseInt(taskListID.toString()) }, data: {completions: {disconnect: {id: parseInt(comp.id.toString())} } } } );
 
   const teams : number[] = [];
   for (const team of comp.teams) {
@@ -104,12 +104,12 @@ export async function DELETE(request: Request) {
   }
 
   for (const team of teams) {
-    await prisma.team.update({ where: { id: team }, data: {completions: {disconnect: { id: comp.id } } } } );
+    await prisma.team.update({ where: { id: parseInt(team.toString()) }, data: {completions: {disconnect: { id: parseInt(comp.toString()) } } } } );
   }
 
   // Delete comp.id
 
-  await prisma.competition.delete({where: {id: comp.id} } );
+  await prisma.competition.delete({where: {id: parseInt(comp.id.toString())} } );
 
   console.log("Delete competition", id);
   return NextResponse.json({ id: parseInt(id) });

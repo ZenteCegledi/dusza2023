@@ -35,14 +35,14 @@ export default async function ContestEnd({
           <div className='pt-2'>
             <div className='flex items-center justify-center'>
               <Link
-                href='../introduction'
+                href='/introduction'
                 className='mt-3 mx-1 btn bg-yellow-950 hover:bg-yellow-900'
               >
                 Bemutatkozó oldal
                 <Home03 />
               </Link>
               <Link
-                href='../'
+                href='/'
                 className='mt-3 mx-1 btn bg-zinc-700 hover:bg-zinc-600'
               >
                 Kijelentkezés

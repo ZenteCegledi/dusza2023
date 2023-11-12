@@ -26,6 +26,8 @@ export default function CreateTasklist() {
       name,
       tasks,
     });
+
+    alert('Sikeresen létrehoztad a feladatsort!');
   };
 
   if (isLoading) return <div>Betöltés...</div>;

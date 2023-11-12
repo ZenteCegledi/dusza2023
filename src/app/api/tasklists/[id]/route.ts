@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
 
 export async function GET(request: Request) {
-  const id: TaskList["id"] = request.url.slice(request.url.lastIndexOf("/") + 1);
+  const id: TaskList["id"] = parseInt(request.url.slice(request.url.lastIndexOf("/") + 1));
 
   const DBresult = await prisma.taskList.findFirst({where: { id: parseInt(id) }, include: {task: true} })
   if (!DBresult) {
@@ -47,7 +47,7 @@ export async function PUT(request: Request) {
 }
 
 export async function DELETE(request: Request) {
-  const id: TaskList["id"] = request.url.slice(request.url.lastIndexOf("/") + 1);
+  const id: Task["id"] = parseInt(request.url.slice(request.url.lastIndexOf("/") + 1));
 
   await prisma.taskList.delete({where: {id: parseInt(id)}})
 

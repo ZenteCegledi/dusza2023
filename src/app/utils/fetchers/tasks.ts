@@ -34,7 +34,7 @@ export async function createTask(task: Omit<Task, 'id'>): Promise<Task> {
 }
 
 export async function updateTask(task: Task): Promise<Task> {
-  const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/tasks', {
+  const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/tasks/' + task.id, {
     method: 'PUT',
     cache: 'no-cache',
     body: JSON.stringify(task),

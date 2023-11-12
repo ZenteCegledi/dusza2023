@@ -2,11 +2,11 @@ import { NextResponse } from "next/server";
 import prisma from "@/lib/db";
 
 export async function GET(request: Request) {
-  const id = request.url.slice(request.url.lastIndexOf("/") + 1);
+  const id = parseInt(request.url.slice(request.url.lastIndexOf("/") + 1));
 
   const DBteam = await prisma.team.findFirst({
   where: {
-    id: parseInt(id),
+    id: id,
   }
   })
 
@@ -15,7 +15,7 @@ export async function GET(request: Request) {
   }
 
   const team: Team = {
-    id: parseInt(id),
+    id: id,
     name: DBteam.name,
     description: DBteam.description,
   };
@@ -25,12 +25,12 @@ export async function GET(request: Request) {
 
 export async function PUT(request: Request) {
   const team: Team = await request.json();
-  if (!await prisma.team.findFirst({where: { id: team.id } } )) {
+  if (!await prisma.team.findFirst({where: { id: parseInt(team.id) } } )) {
     return NextResponse.error()
   }
 
   await prisma.team.update({
-    where: { id: team.id },
+    where: { id: parseFloat(team.id) },
     data: {
       name: team.name,
       description: team.description
@@ -42,14 +42,14 @@ export async function PUT(request: Request) {
 }
 
 export async function DELETE(request: Request) {
-  const id = request.url.slice(request.url.lastIndexOf("/") + 1);
+  const id = parseInt(request.url.slice(request.url.lastIndexOf("/") + 1));
 
-  if (!await prisma.team.findFirst({where: { id: parseInt(id) } } )) {
+  if (!await prisma.team.findFirst({where: { id: id } } )) {
     return NextResponse.error()
   }
 
-  await prisma.team.delete({where: {id: parseInt(id)}})
+  await prisma.team.delete({where: {id: id}})
 
   console.log("Delete team", id);
-  return NextResponse.json({ id: parseInt(id) });
+  return NextResponse.json({ id: id });
 }

@@ -16,11 +16,11 @@ export default async function Home() {
           <div>
             <Link
               className='btn bg-blue-600 hover:bg-blue-800 pl-10 pr-10 mr-5 text-white'
-              href='./login'>
+              href='/login'>
               <LogIn02 />
               Bejelentkezés
             </Link>
-            <Link href="./introduction" className='btn bg-neutral-700 hover:bg-neutral-800 ml-5 pl-4 pr-4 text-white'>
+            <Link href="/introduction" className='btn bg-neutral-700 hover:bg-neutral-800 ml-5 pl-4 pr-4 text-white'>
               <Home02 />
               Bemutatkozó oldal
             </Link>

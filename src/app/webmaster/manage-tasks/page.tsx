@@ -48,7 +48,7 @@ export default function ManageTasks() {
               >
                 Szűrés <FilterFunnel01 />
               </button>
-              <Link href='./' className='btn bg-green-800 hover:bg-green-700'>
+              <Link href='/webmaster/add-tasks' className='btn bg-green-800 hover:bg-green-700'>
                 Új feladatok hozzáadása <FilePlus02 />
               </Link>
             </td>

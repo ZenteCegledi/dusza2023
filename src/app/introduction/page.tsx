@@ -7,11 +7,9 @@ import { fetchMe, fetchUsers } from '@/app/utils/fetchers/users';
 import { fetchTeam } from '@/app/utils/fetchers/teams';
 
 export default async function Introduction() {
-  const [settings, intro, me] = await Promise.all([
-    fetchSettings(),
-    fetchIntro(),
-    fetchMe(),
-  ]);
+  const settings = await fetchSettings();
+  const intro = await fetchIntro();
+  const me = await fetchMe();
   let currentCompetitions = null;
   let users = null;
   let team = null;

@@ -31,6 +31,8 @@ export default function ManageTaskLists() {
     }
   };
 
+  console.log(tasklists);
+
   return (
     <div className='overflow-x-auto m-5 p-3 bg-base-200 rounded-lg w-full'>
       <table className='table'>
@@ -74,7 +76,7 @@ export default function ManageTaskLists() {
               <td>
                 <Link
                   className='btn bg-yellow-900 hover:bg-yellow-700 mr-2 px-3'
-                  href={`/webmaster/change-task/${tasklist.id}`}
+                  href={`/webmaster/change-tasklist/${tasklist.id}`}
                 >
                   <Edit03 />
                 </Link>

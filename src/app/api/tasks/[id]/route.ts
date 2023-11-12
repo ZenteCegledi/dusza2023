@@ -1,10 +1,10 @@
 import { NextResponse } from "next/server";
-import { validateTask } from "../validate";
+import { validateTask } from "@/app/utils/others";
 import prisma from "@/lib/db";
 import {fitIntoGrades} from "@/app/utils/grades";
 
 export async function GET(request: Request) {
-  const id: Task["id"] = request.url.slice(request.url.lastIndexOf("/") + 1);
+  const id: Task["id"] = parseInt(request.url.slice(request.url.lastIndexOf("/") + 1));
 
   const task_info = await prisma.task.findFirst({where: {id: parseInt(id)}})
 
@@ -16,6 +16,7 @@ export async function GET(request: Request) {
     id: parseInt(id),
     words: [],
     grade: fitIntoGrades(task_info.grade),
+    creatorTeacher: 1
   };
 
   const words_db = await prisma.words.findMany({where: { taskId: task_info.id }, select: {word: true}})
@@ -36,7 +37,7 @@ export async function PUT(request: Request) { // Update value
   // Validate Existence of Task
   const task_db = await prisma.task.findFirst({
     where: {
-      id: task.id
+      id: parseInt(task.id)
     }
   })
 
@@ -45,14 +46,14 @@ export async function PUT(request: Request) { // Update value
   }
 
   // Update Words
-  const words = await prisma.words.findMany({where: {taskId: task.id}})
+  const words = await prisma.words.findMany({where: {taskId: parseInt(task.id)}})
   words.sort((a, b) => b.id - a.id) // Sort based on ID
 
   let i = 0
   for (const word of words) {
     if (!await prisma.words.update({
       where: {
-        id: word.id
+        id: parseInt(word.id.toString())
       },
       data: {
         word: task.words[i]
@@ -65,7 +66,7 @@ export async function PUT(request: Request) { // Update value
   // Update Task
   if (!await prisma.task.update({
     where: {
-      id: task_db.id
+      id: parseInt(task_db.id.toString())
     },
     data: {
       grade: task.grade
@@ -80,7 +81,7 @@ export async function PUT(request: Request) { // Update value
 }
 
 export async function DELETE(request: Request) {
-  const id: Task["id"] = request.url.slice(request.url.lastIndexOf("/") + 1);
+  const id: Task["id"] = parseInt(request.url.slice(request.url.lastIndexOf("/") + 1));
 
   // Del words
   await prisma.words.deleteMany({

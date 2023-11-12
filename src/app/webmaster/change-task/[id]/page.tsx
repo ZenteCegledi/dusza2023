@@ -24,13 +24,21 @@ export default function ChangeTask({ params }: { params: { id: Task['id'] } }) {
   }) => {
     if (!task) return;
 
+    const taskWords = words.replace(/\s/g, '').split(',');
+    if (taskWords.length !== 4) {
+      alert('A feladatnak pontosan 4 szóból kell állnia!');
+      return;
+    }
+
     await updateTask({
       id: task.id,
-      words: words.replace(/\s/g, '').split(','),
+      words: taskWords,
       grade,
       // TODO: add creatorTeacher to task
       creatorTeacher: task.creatorTeacher,
     });
+
+    alert('Sikeresen módosítottad a feladatot!');
   };
 
   if (isLoading) return <div>Betöltés...</div>;
