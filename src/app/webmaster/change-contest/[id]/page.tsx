@@ -3,11 +3,15 @@
 import { useEffect, useState } from 'react';
 import { useTasklists } from '@/app/utils/hooks/tasklists';
 import { useTeams } from '@/app/utils/hooks/teams';
-import { createCompetition } from '@/app/utils/fetchers/competitions';
+import { useCompetition } from '@/app/utils/hooks/competitions';
+import { updateCompetition } from '@/app/utils/fetchers/competitions';
 
-export default function AddContest() {
+export default function EditContest({ params }: { params: { id: Competition['id'] } }) {
+  const id = params.id;
+
   const tasklistsQuery = useTasklists();
   const teamsQuery = useTeams();
+  const competitionQuery = useCompetition(id);
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
@@ -46,12 +50,26 @@ export default function AddContest() {
     );
   }, [searchTeam, teamsQuery.teams]);
 
-  if (tasklistsQuery.isLoading || teamsQuery.isLoading)
+  useEffect(() => {
+    if (!competitionQuery.competition) return;
+    setName(competitionQuery.competition.name);
+    setDescription(competitionQuery.competition.description);
+    setStart(new Date(competitionQuery.competition.start).toISOString().slice(0, 16));
+    setEnd(new Date(competitionQuery.competition.end).toISOString().slice(0, 16));
+    setSelectedTasklists(tasklistsQuery.tasklists?.filter((tasklist) => tasklist.id === competitionQuery.competition?.tasklist) ?? []);
+    setSelectedTeams(teamsQuery.teams?.filter((team) => competitionQuery.competition?.teams.includes(team.id)) ?? []);
+  }, [competitionQuery.competition, tasklistsQuery.tasklists, teamsQuery.teams]);
+
+  if (tasklistsQuery.isLoading || teamsQuery.isLoading || competitionQuery.isLoading)
     return <div>Betöltés...</div>;
   if (tasklistsQuery.isError)
     return <div>Hiba történt a feladatsorok betöltése közben.</div>;
   if (teamsQuery.isError)
     return <div>Hiba történt a csapatok betöltése közben.</div>;
+  if (competitionQuery.isError)
+    return <div>Hiba történt a verseny betöltése közben.</div>;
+  if (!tasklistsQuery.tasklists)
+    return <div>Nem található feladatsor.</div>;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -66,7 +84,8 @@ export default function AddContest() {
       return;
     }
 
-    const success = await createCompetition({
+    const success = await updateCompetition({
+      id,
       name,
       description,
       start: new Date(start),
@@ -76,16 +95,16 @@ export default function AddContest() {
     });
 
     if (success) {
-      alert('Sikeresen létrehoztad a versenyt!');
+      alert('Sikeresen szerkesztetted a versenyt!');
     } else {
-      alert('Hiba történt a verseny létrehozása közben!');
+      alert('Hiba történt a verseny szerkesztése közben!');
     }
   }
 
   return (
     <div className='w-full p-6 m-auto rounded-md shadow-md lg:max-w-lg bg-gray-900'>
       <h1 className='text-3xl font-semibold text-center text-white-700 pb-5 pt-4 px-8'>
-        Verseny létrehozása
+        Verseny szerkesztése
       </h1>
       <form className='space-y-4' onSubmit={handleSubmit}>
         <hr className=' h-px my-2 bg-gray-200 border-0 dark:bg-gray-700' />
@@ -286,7 +305,7 @@ export default function AddContest() {
             className='btn w-full bg-green-900 hover:bg-green-700'
             type='submit'
           >
-            Verseny létrehozása
+            Verseny szerkesztése
           </button>
         </div>
       </form>

@@ -65,7 +65,6 @@ type Competition = {
   id: int;
   name: string;
   description: string;
-  grade: Grades;
   start: Date;
   end: Date;
   tasklist: TaskList['id'];

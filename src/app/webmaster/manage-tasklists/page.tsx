@@ -3,14 +3,23 @@
 import { Edit03, FilePlus02, Trash01 } from '@untitled-ui/icons-react';
 import Link from 'next/link';
 import { useTasklists } from '@/app/utils/hooks/tasklists';
+import { useCompetitions } from '@/app/utils/hooks/competitions';
 import { deleteTasklist } from '@/app/utils/fetchers/tasklists';
 
 export default function ManageTaskLists() {
-  const { tasklists, isLoading, isError } = useTasklists();
+  const tasklistsQuery = useTasklists();
+  const competitionsQuery = useCompetitions();
 
-  if (isLoading) return <div>Betöltés...</div>;
-  if (isError) return <div>Hiba történt a feladatsorok betöltése közben.</div>;
-  if (!tasklists) return <div>Nincsenek feladatsorok</div>;
+  if (tasklistsQuery.isLoading || competitionsQuery.isLoading)
+    return <div>Betöltés...</div>;
+  if (tasklistsQuery.isError)
+    return <div>Hiba történt a feladatsorok betöltése közben.</div>;
+  if (competitionsQuery.isError)
+    return <div>Hiba történt a versenyek betöltése közben.</div>;
+  if (!tasklistsQuery.tasklists) return <div>Nincsenek feladatsorok</div>;
+
+  const tasklists = tasklistsQuery.tasklists;
+  const competitions = competitionsQuery.competitions;
 
   const handleDeleteTasklist = async (id: number) => {
     const success = await deleteTasklist(id);
@@ -20,7 +29,7 @@ export default function ManageTaskLists() {
     } else {
       alert('Hiba történt a feladatsor törlése közben!');
     }
-  }
+  };
 
   return (
     <div className='overflow-x-auto m-5 p-3 bg-base-200 rounded-lg w-full'>
@@ -54,13 +63,25 @@ export default function ManageTaskLists() {
             <tr key={tasklist.id} className='hover:bg-gray-700'>
               <th>{tasklist.id}</th>
               <td>{tasklist.name}</td>
-              <td>((Competition id))</td>
+              <td>
+                {competitions!.map((competition) => {
+                  if (competition.id === tasklist.id) {
+                    return competition.name;
+                  }
+                })}
+              </td>
               <td>{tasklist.tasks.length}</td>
               <td>
-                <button className='btn bg-yellow-900 hover:bg-yellow-700 mr-2 px-3'>
+                <Link
+                  className='btn bg-yellow-900 hover:bg-yellow-700 mr-2 px-3'
+                  href={`/webmaster/change-task/${tasklist.id}`}
+                >
                   <Edit03 />
-                </button>
-                <button className='btn bg-red-900 hover:bg-red-700 px-3' onClick={() => handleDeleteTasklist(tasklist.id)}>
+                </Link>
+                <button
+                  className='btn bg-red-900 hover:bg-red-700 px-3'
+                  onClick={() => handleDeleteTasklist(tasklist.id)}
+                >
                   <Trash01 />
                 </button>
               </td>

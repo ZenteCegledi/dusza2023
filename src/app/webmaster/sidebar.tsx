@@ -28,7 +28,7 @@ export default async function Sidebar() {
       <a className='btn btn-ghost normal-case text-xl'>{settings.name}</a>
       <b className='pt-5 pb-2'>Webmester</b>
       <li>
-        <Link href="./statistics">
+        <Link href="/webmaster/statistics">
           <PieChart01 />
           Statisztikák
         </Link>
@@ -88,14 +88,14 @@ export default async function Sidebar() {
         </Link>
       </li>
       <li className='pl-5'>
-        <Link href="./create-tasklist">
+        <Link href="/webmaster/create-tasklist">
           <FilePlus02 />
           Feladatsor hozzáadása
         </Link>
       </li>
       <b className='pt-4 pb-2'>Zsűritag</b>
       <li>
-        <Link href="./manage-contests">
+        <Link href="/webmaster/manage-contests">
           <Flag01 />
           Versenyek kezelése
         </Link>
@@ -117,7 +117,7 @@ export default async function Sidebar() {
       <hr className='h-px my-8 bg-gray-200 border-0 dark:bg-gray-700' />
       {/* <li className="absolute inset-x-0 bottom-0 h-16 pt-10"><a><LogOut01/>Kijelentkezés</a></li> */}
       <li>
-        <Link href="../introduction" target="_blank">
+        <Link href="/introduction" target="_blank">
           <Home02 />
           Bemutatkozó oldal
         </Link>

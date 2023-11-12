@@ -26,8 +26,8 @@ export default function WebmasterLayout({
       </div>
       <div className='drawer lg:drawer-open'>
         <input id='my-drawer-2' type='checkbox' className='drawer-toggle' />
-        <div className='drawer-content flex flex-col items-center justify-center'>
-          <div className='relative flex flex-col justify-center h-screen overflow-hidden'>
+        <div className='drawer-content overflow-auto p-6'>
+          <div className='relative justify-center'>
             {children}
           </div>
         </div>
