@@ -1,33 +1,24 @@
-import { NextResponse } from 'next/server';
-import { validateTask } from '@/app/utils/others';
+import { NextResponse } from "next/server";
+import { validateTask } from "./validate";
+import prisma from "@/lib/db";
+import {fitIntoGrades} from "@/app/utils/grades";
+
 
 export async function GET() {
-  const tasks: Task[] = [
-    {
-      id: 1,
-      words: ['word1', 'word2', 'word3', 'word4'],
-      grade: 5,
-      creatorTeacher: 1,
-    },
-    {
-      id: 2,
-      words: ['word1', 'word2', 'word3', 'word47'],
-      grade: 5,
-      creatorTeacher: 1,
-    },
-    {
-      id: 3,
-      words: ['word1', 'word2', 'word3', 'word46'],
-      grade: 5,
-      creatorTeacher: 1,
-    },
-    {
-      id: 4,
-      words: ['word1', 'word2', 'word3', 'word44'],
-      grade: 5,
-      creatorTeacher: 1,
-    },
-  ];
+  const tasks: Task[] = []
+
+  const db_tasks = await prisma.task.findMany()
+  for (const dbTask of db_tasks) {
+    const words_db = await prisma.words.findMany({where: { taskId: dbTask.id }, select: {word: true}})
+
+    let words: string[] = []
+    for (const word of words_db) {
+      words.push(word.word)
+    }
+
+    const task : Task = {id: dbTask.id, grade: fitIntoGrades(dbTask.grade), words: words}
+    tasks.push(task)
+  }
 
   return NextResponse.json(tasks);
 }
@@ -39,7 +30,22 @@ export async function POST(request: Request) {
     return NextResponse.error();
   }
 
-  console.log('Task', task);
+  const db_task = await prisma.task.create({
+    data: {
+      grade: task.grade,
+    },
+  });
+
+  for (const word of task.words) {
+    await prisma.words.create({
+      data: {
+        word: word,
+        taskId: db_task.id
+      }
+    })
+  }
+
+  console.log("Task", task);
 
   return NextResponse.json(task);
 }

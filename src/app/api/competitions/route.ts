@@ -1,46 +1,33 @@
 import { NextResponse } from 'next/server';
+import prisma from "@/lib/db";
+import {fitIntoGrades} from "@/app/utils/grades";
 
 export async function GET() {
-  const competitions: Competition[] = [
-    {
-      id: 1,
-      name: 'Competition 1',
-      description: 'Description 1',
-      tasklist: 1,
-      start: new Date(),
-      end: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
-      teams: [1, 2, 3, 4],
-    },
-    {
-      id: 2,
-      name: 'Competition 2',
-      description: 'Description 2',
-      tasklist: 1,
-      start: new Date(),
-      end: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
-      teams: [1, 2, 3, 4],
-    },
-    {
-      id: 3,
-      name: 'Competition 3',
-      description: 'Description 3',
-      tasklist: 1,
-      start: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7),
-      end: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
-      teams: [1, 2, 3, 4],
-    },
-    {
-      id: 4,
-      name: 'Competition 4',
-      description: 'Description 4',
-      tasklist: 1,
-      start: new Date(),
-      end: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
-      teams: [1, 2, 3, 4],
-    },
-  ];
+  const competitions: Competition[] = [];
 
-  console.log('Competition', competitions[2]);
+  const dbCompetitions = await prisma.competition.findMany({include: {teams: true, taskList: true} } )
+  for (const dbCompetition of dbCompetitions) {
+    const teams : number[] = []
+
+    for (const teamID of dbCompetition.teams) {
+      teams.push(teamID.id)
+    }
+
+    if (!dbCompetition.taskList[0]) {
+      continue;
+    }
+
+    competitions.push({
+      id: dbCompetition.id,
+      name: dbCompetition.name,
+      description: dbCompetition.description,
+      grade: fitIntoGrades(dbCompetition.grade),
+      tasklist: dbCompetition.taskList[0].id,
+      start: dbCompetition.start,
+      end: dbCompetition.end,
+      teams: teams
+    })
+  }
 
   return NextResponse.json(competitions);
 }
@@ -48,6 +35,33 @@ export async function GET() {
 export async function POST(request: Request) {
   const competition: Omit<Competition, 'id'> = await request.json();
 
-  console.log('Competition', competition);
-  return NextResponse.json(competition);
+  const comp = await prisma.competition.create({
+    data: {
+      name: competition.name,
+      description: competition.description,
+      grade: competition.grade as number,
+      start: competition.start,
+      end: competition.end,
+      taskList: {
+        connect: {id: competition.tasklist}
+      },
+    }
+  })
+  if (!comp) { return NextResponse.error() }
+  //link teams
+  for (const team of competition.teams) {
+    await prisma.team.update({
+      where: { id : team },
+      data: {
+        completions: {
+          connect: {
+            id: comp.id
+          }
+        }
+      }
+    })
+  }
+
+  console.log('Competition', comp);
+  return NextResponse.json(comp);
 }

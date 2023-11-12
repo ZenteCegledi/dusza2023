@@ -1,12 +1,37 @@
 import { NextResponse } from 'next/server';
+import prisma from "@/lib/db";
+import {fitIntoGrades} from "@/app/utils/grades";
+
+const isBetween = (date: Date, min: Date, max: Date) => (date.getTime() >= min.getTime() && date.getTime() <= max.getTime());
 
 export async function GET() {
-  const currentCompetitions: Competition[] = [
-    { id: 1, name: "Competition 1", description: "Description 1", tasklist: 1, start: new Date(), end: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), teams: [1, 2, 3, 4] },
-    { id: 2, name: "Competition 2", description: "Description 2", tasklist: 1, start: new Date(), end: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), teams: [1, 2, 3, 4] },
-    { id: 3, name: "Competition 3", description: "Description 3", tasklist: 1, start: new Date(Date.now() - 1000 * 60 * 60 * 24 * 7), end: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), teams: [1, 2, 3, 4] },
-    { id: 4, name: "Competition 4", description: "Description 4", tasklist: 1, start: new Date(), end: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7), teams: [1, 2, 3, 4] },
-  ]
+  const competitions: Competition[] = [];
 
-  return NextResponse.json(currentCompetitions);
+  const dbCompetitions = await prisma.competition.findMany({include: {teams: true, taskList: true} } )
+  for (const dbCompetition of dbCompetitions) {
+    const teams : number[] = []
+
+    for (const teamID of dbCompetition.teams) {
+      teams.push(teamID.id)
+    }
+
+    if (!dbCompetition.taskList[0]) {
+      continue;
+    }
+
+    if (!isBetween(new Date(), dbCompetition.start, dbCompetition.end)) { continue }
+
+    competitions.push({
+      id: dbCompetition.id,
+      name: dbCompetition.name,
+      description: dbCompetition.description,
+      grade: fitIntoGrades(dbCompetition.grade),
+      tasklist: dbCompetition.taskList[0].id,
+      start: dbCompetition.start,
+      end: dbCompetition.end,
+      teams: teams
+    })
+  }
+
+  return NextResponse.json(competitions);
 }

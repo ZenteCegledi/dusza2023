@@ -1,0 +1,101 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  USER
+  TEACHER
+  JURY
+  WEBMASTER
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  name String
+  username String
+  password String
+  role Role
+  student Student?
+  teacher Teacher?
+  jury Jury?
+}
+
+model Student {
+  id Int @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int @unique
+  grade Int
+  class String
+  team Team? @relation(fields: [teamId], references: [id])
+  teamId Int?
+}
+
+model Teacher {
+  id Int @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int @unique
+  // All other info for teachers
+}
+
+model Jury {
+  id Int @id @default(autoincrement())
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId Int @unique
+}
+
+model Team {
+  id Int @id @default(autoincrement())
+  name String
+  description String
+  users Student[]
+  completions Competition[]
+}
+
+model Task{
+  id Int @id @default(autoincrement())
+  taskList TaskList? @relation(fields: [taskListId], references: [id])
+  taskListId Int?
+  words Words[]
+  grade Int
+}
+
+model Words { // MYSQL String[] Workaround
+  id Int @id @default(autoincrement())
+  word String
+  task Task? @relation(fields: [taskId], references: [id])
+  taskId Int?
+}
+
+model TaskList {
+  id Int @id @default(autoincrement())
+  name String
+  task Task[]
+  completions Competition[]
+}
+
+model Competition {
+  id Int @id @unique @default(autoincrement())
+  name String @default("New Competition")
+  description String @default("")
+  grade Int
+  start DateTime
+  end DateTime
+  taskList TaskList[]
+  teams Team[]
+}
+
+model SiteSettings {
+  id Int @id @default(0)
+  name String @default("Rando Page")
+  descriprion String @default("")
+  slogan String
+  icon String
+}

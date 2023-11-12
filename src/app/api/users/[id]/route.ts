@@ -1,42 +1,28 @@
 import { NextResponse } from "next/server";
+import {DeleteUser, GetUser, UpdateUser} from "@/lib/db";
 
 export async function GET(request: Request) {
   const id: User["id"] = request.url.slice(request.url.lastIndexOf("/") + 1);
 
-  const user: User = {
-    id: parseInt(id),
-    name: "John",
-    role: "student" as Role.STUDENT,
-    grade: 5,
-    class: "A",
-    username: "john",
-    team: 1,
-  };
+  const user = await GetUser(id);
 
   return NextResponse.json(user);
 }
 
 export async function PUT(request: Request) {
   const user: User = await request.json();
-
-  switch (user.role) {
-    case "student":
-      console.log("Student", user);
-      return NextResponse.json(user);
-    case "teacher":
-      console.log("Teacher", user);
-      return NextResponse.json(user);
-    case "jury":
-      console.log("Jury", user);
-      return NextResponse.json(user);
-    default:
-      return NextResponse.error();
-  }
+  await UpdateUser(user);
+  return NextResponse.json({"aha": "a"})
 }
 
 export async function DELETE(request: Request) {
   const id: User["id"] = request.url.slice(request.url.lastIndexOf("/") + 1);
 
-  console.log("Delete user", id);
+  console.log("Delete user", parseInt(id));
+
+  if (!await DeleteUser(parseInt(id))) {
+    return NextResponse.error()
+  }
+
   return NextResponse.json({ id: parseInt(id) });
 }
