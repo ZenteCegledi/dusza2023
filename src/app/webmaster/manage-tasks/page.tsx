@@ -42,12 +42,12 @@ export default function ManageTasks() {
               <h1 className='text-3xl '>Feladatok kezelése</h1>
             </td>
             <td className='flex justify-end pb-4'>
-              <button
+              {/* <button
                 className='btn bg-blue-800 hover:bg-blue-600 mr-3'
                 id='filterButton'
               >
                 Szűrés <FilterFunnel01 />
-              </button>
+              </button> */}
               <Link href='/webmaster/add-tasks' className='btn bg-green-800 hover:bg-green-700'>
                 Új feladatok hozzáadása <FilePlus02 />
               </Link>

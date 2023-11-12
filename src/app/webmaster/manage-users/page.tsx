@@ -40,12 +40,12 @@ export default function ManageUsers() {
               <h1 className='text-3xl '>Felhasználók kezelése</h1>
             </td>
             <td className='flex justify-end pb-4'>
-              <button
+              {/* <button
                 className='btn bg-blue-800 hover:bg-blue-600 mr-3'
                 id='filterButton'
               >
                 Szűrés jogkörre <FilterFunnel01 />
-              </button>
+              </button> */}
 
               <Link href='/webmaster/add-user' className='btn bg-green-800 hover:bg-green-700'>
                 Felhasználó hozzáadása <UserPlus02 />
