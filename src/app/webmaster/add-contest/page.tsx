@@ -44,7 +44,7 @@ export default function AddContest() {
           team.name.toLowerCase().includes(searchTeam.toLowerCase())
       )
     );
-  }, [searchTeam, teamsQuery.teams]);
+  }, [searchTeam, selectedTeams, teamsQuery.teams]);
 
   if (tasklistsQuery.isLoading || teamsQuery.isLoading)
     return <div>Betöltés...</div>;
