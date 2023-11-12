@@ -4,6 +4,7 @@ export default function Statistics() {
 
   return (
       <table className="table table-auto">
+        <tbody>
         <tr>
           <td>
           <div className='p-6 m-auto rounded-md shadow-md lg:max-w-lg bg-gray-900'>
@@ -24,6 +25,7 @@ export default function Statistics() {
             </div>
           </td>
         </tr>
+        </tbody>
       </table>
   );
 }
