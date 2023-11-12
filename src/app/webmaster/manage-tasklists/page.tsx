@@ -40,7 +40,7 @@ export default function ManageTaskLists() {
               <h1 className='text-3xl '>Feladatsorok kezelése</h1>
             </td>
             <td className='flex justify-end pb-4'>
-              <Link href='./' className='btn bg-green-800 hover:bg-green-700'>
+              <Link href='/webmaster/create-tasklist' className='btn bg-green-800 hover:bg-green-700'>
                 Feladatsor hozzáadása <FilePlus02 />
               </Link>
             </td>
