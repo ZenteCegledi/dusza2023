@@ -19,6 +19,13 @@ export async function GET() {
 export async function POST(request: Request) {
   const team: Omit<Team, "id"> = await request.json();
 
+  await prisma.team.create({
+    data:{
+      name: team.name,
+      description: team.description
+    }
+  })
+
   console.log("Team", team);
   return NextResponse.json(team);
 }
