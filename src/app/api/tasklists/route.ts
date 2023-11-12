@@ -30,7 +30,7 @@ export async function POST(request: Request) {
   })
 
   for (const task of tasklist.tasks) {
-    await prisma.task.update({where: {id: task}, data: { taskList : { connect: { id: tl.id } }} } )
+    await prisma.task.update({where: {id: parseInt(task)}, data: { taskList : { connect: { id: parseInt(tl.id.toString()) } }} } )
   }
 
   console.log("Tasklist", tasklist);

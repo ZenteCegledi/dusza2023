@@ -27,18 +27,18 @@ export async function PUT(request: Request) {
 
   console.log(tasklist)
 
-  const OriginalDBContent = await prisma.taskList.findFirst({where: {id: tasklist.id}, include: {task: true}})
+  const OriginalDBContent = await prisma.taskList.findFirst({where: {id: parseInt(tasklist.id)}, include: {task: true}})
   if (!OriginalDBContent) { return NextResponse.error() }
   for (const taskElement of OriginalDBContent.task) {
-    await prisma.task.update({where: { id: taskElement.id }, data: { taskListId: null} }) // unassign tasks
+    await prisma.task.update({where: { id: parseInt(taskElement.id.toString()) }, data: { taskListId: null} }) // unassign tasks
   }
 
   for (const taskId of tasklist.tasks) {
-    await prisma.task.update({ where: { id: taskId }, data: { taskListId: tasklist.id} })
+    await prisma.task.update({ where: { id: parseInt(taskId) }, data: { taskListId: parseInt(tasklist.id)} })
   }
 
   await prisma.taskList.update({
-    where: { id: tasklist.id },
+    where: { id: parseInt(tasklist.id) },
     data: {
       name: tasklist.name
     }

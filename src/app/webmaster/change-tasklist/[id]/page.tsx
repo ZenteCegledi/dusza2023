@@ -31,6 +31,8 @@ export default function ChangeTasklist({ params }: { params: { id: TaskList['id'
       name,
       tasks,
     });
+
+    console.log('Sikeresen módosítottad a feladatsort!');
   };
 
   useEffect(() => {
@@ -127,7 +129,7 @@ export default function ChangeTasklist({ params }: { params: { id: TaskList['id'
         <div className='pt-1'>Kiválasztott feladatok száma: {selectedTasks.length}</div>
         <div className='pt-1'>
           <button className='btn w-full bg-green-900 hover:bg-green-700'>
-            Feladatsor létrehozása
+            Feladatsor szerkesztése
           </button>
         </div>
       </form>
