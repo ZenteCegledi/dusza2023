@@ -86,6 +86,31 @@ export async function PUT(request: Request) {
 export async function DELETE(request: Request) {
   const id: Competition["id"] = request.url.slice(request.url.lastIndexOf("/") + 1);
 
+  const comp = await prisma.competition.findFirst({ where: { id: parseInt(id)}, include: { teams: true, taskList: true } } )
+  if (!comp) { return NextResponse.error() }
+
+  //Unlink teams and tasklists
+  const taskList = comp.taskList.at(0)
+  if (!taskList) {
+    return NextResponse.error()
+  }
+  const taskListID = taskList.id
+
+  await prisma.taskList.update({where: {id: taskListID }, data: {completions: {disconnect: {id: comp.id} } } } );
+
+  const teams : number[] = [];
+  for (const team of comp.teams) {
+    teams.push(team.id)
+  }
+
+  for (const team of teams) {
+    await prisma.team.update({ where: { id: team }, data: {completions: {disconnect: { id: comp.id } } } } );
+  }
+
+  // Delete comp.id
+
+  await prisma.competition.delete({where: {id: comp.id} } );
+
   console.log("Delete competition", id);
   return NextResponse.json({ id: parseInt(id) });
 }
