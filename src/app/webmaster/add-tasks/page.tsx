@@ -19,12 +19,6 @@ export default function AddTask() {
     const tasksArray = tasks.split('\n');
     const tasksArrayLength = tasksArray.length;
     const tasksArrayLengthModulo = tasksArrayLength % 3;
-    if (tasksArrayLength === 0 || tasksArrayLengthModulo !== 0) {
-      alert(
-        'A feladatok számának 3-mal oszthatónak kell lennie és nem lehet 0!'
-      );
-      return;
-    }
 
     console.log(tasksArray);
 
