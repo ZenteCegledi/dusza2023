@@ -2,15 +2,33 @@
 
 import { useEffect, useState } from 'react';
 import { useUsers } from '@/app/utils/hooks/users';
+import { useTeam } from '@/app/utils/hooks/teams';
+import { updateTeam } from '@/app/utils/fetchers/teams';
+import { updateUser } from '@/app/utils/fetchers/users';
 
-export default function AddTeam() {
+export default function ChangeTeam({ params }: { params: { id: Team['id'] } }) {
+  const id = params.id;
+
   const usersQuery = useUsers();
+  const teamQuery = useTeam(id);
 
   const [name, setName] = useState('');
   const [description, setDescription] = useState('');
   const [studentsSearch, setStudentsSearch] = useState('');
   const [selectedStudents, setSelectedStudents] = useState<User[]>([]);
   const [unselectedStudents, setUnselectedStudents] = useState<User[]>([]);
+
+  useEffect(() => {
+    if (!teamQuery.team) return;
+    setName(teamQuery.team.name);
+    setDescription(teamQuery.team.description);
+    // user has team field
+    if (usersQuery.users) {
+      setSelectedStudents(
+        usersQuery.users.filter((user) => (user as Student).team === id)
+      );
+    }
+  }, [teamQuery.team]);
 
   useEffect(() => {
     if (!usersQuery.users) return;
@@ -24,31 +42,77 @@ export default function AddTeam() {
     );
   }, [usersQuery.users, selectedStudents, studentsSearch]);
 
-  if (usersQuery.isLoading) return <div>Betöltés...</div>;
+  if (usersQuery.isLoading || teamQuery.isLoading)
+    return <div>Betöltés...</div>;
   if (usersQuery.isError)
     return <div>Hiba történt a felhasználók betöltése közben.</div>;
+  if (teamQuery.isError)
+    return <div>Hiba történt a csapat betöltése közben.</div>;
+  if (!teamQuery.team) return <div>Nincs ilyen azonosítójú csapat.</div>;
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/teams', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name, description } as Team),
-    });
-    if (!res.ok) {
-      throw new Error(res.statusText);
+    if (!teamQuery.team) return;
+
+    const team: Team = {
+      id: teamQuery.team.id,
+      name,
+      description,
+    };
+    const res = await updateTeam(team);
+
+    const oldStudents = usersQuery.users?.filter(
+      (user) => (user as Student).team === id
+    );
+
+    const removeFunctions = [];
+
+    // remove team from old students
+    for (const student of oldStudents || []) {
+      const user: Student = {
+        id: student.id,
+        name: student.name,
+        username: student.username,
+        team: null,
+        role: student.role as Student['role'],
+      } as Student;
+      removeFunctions.push(updateUser(user));
     }
-    const data = await res.json();
-    console.log(data);
+
+    const results1 = await Promise.all(removeFunctions);
+
+    if (results1.some((result) => !result)) {
+      alert('Hiba történt a csapat módosítása közben.');
+      return;
+    }
+
+    const addFunctions = [];
+
+    for (const student of selectedStudents) {
+      const user: Student = {
+        id: student.id,
+        name: student.name,
+        username: student.username,
+        team: team.id,
+        role: student.role as Student['role'],
+      } as Student;
+      addFunctions.push(updateUser(user));
+    }
+
+    await Promise.all(addFunctions);
+  
+    if (results1.some((result) => !result)) {
+      alert('Hiba történt a csapat módosítása közben.');
+      return;
+    }
+    alert('Csapat sikeresen módosítva.');
   };
 
   return (
     <>
       <div className='w-full p-6 m-auto rounded-md shadow-md lg:max-w-lg bg-gray-900'>
         <h1 className='text-3xl font-semibold text-center text-white-700 pb-5 pt-4 px-8'>
-          Csapat létrehozása
+          Csapat szerkesztése
         </h1>
         <form className='space-y-4' onSubmit={handleSubmit}>
           <hr className=' h-px my-2 bg-gray-200 border-0 dark:bg-gray-700' />
@@ -146,7 +210,7 @@ export default function AddTeam() {
               className='btn w-full bg-green-900 hover:bg-green-700'
               type='submit'
             >
-              Csapat hozzáadása
+              Csapat szerkesztése
             </button>
           </div>
         </form>

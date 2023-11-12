@@ -21,7 +21,7 @@ export function useTeam(id: Team['id']): {
   isLoading: boolean;
   isError: boolean;
 } {
-  const { data, isLoading } = useSWR<Team>(`teams/${id}`, fetchTeam);
+  const { data, isLoading } = useSWR<Team>(`teams/${id}`, () => fetchTeam(id));
   const isError = !data && !isLoading;
   return {
     team: data,
