@@ -56,9 +56,9 @@ export default function Contest({
 
   const handleNextTask = () => {
     if (!tasks) return;
+    setInputValue('');
     if (currentTask === tasks?.length - 1) {
       setTaskSolutions([...taskSolutions, inputValue]);
-      setInputValue('');
     }
     if (currentTask === tasks?.length - 1) {
       createSubmit({
@@ -98,7 +98,7 @@ export default function Contest({
               Írd le jó betűsorrendben a negyedik szót!
             </div>
             <div className='text-xl p-2'>
-              Jó szavak: {tasks![currentTask]?.words.join(', ')}
+              Jó szavak: {tasks![currentTask]?.words.slice(0, 3).join(', ')}
               <div className='text-xl p-2 pb-6'>
                 Negyedik szó: {shufff(tasks![currentTask]?.words[3], seed)}
               </div>

@@ -1,4 +1,4 @@
-import { Award05, Home02, Laptop01, LogIn02 } from '@untitled-ui/icons-react';
+import { Award05, Home02, Laptop01, LogIn02, Settings01 } from '@untitled-ui/icons-react';
 import { fetchIntro } from './utils/fetchers/intro';
 import { fetchSettings } from './utils/fetchers/settings';
 import Link from 'next/link';
@@ -14,13 +14,13 @@ export default async function Home() {
           <p className='text-3xl'>{settings.slogan}</p>
           <div className='mt-10 mb-20'>
             <div className='flex flex-col justify-center gap-4'>
-              <Link
+              {/* <Link
                 className='btn bg-blue-600 hover:bg-blue-800 text-white'
                 href='/login'
               >
                 <LogIn02 />
                 Bejelentkezés
-              </Link>
+              </Link> */}
               <Link
                 href='/introduction'
                 className='btn bg-neutral-700 hover:bg-neutral-800 text-white'
@@ -38,6 +38,10 @@ export default async function Home() {
               <Link href='/contests' className='btn bg-green-800 hover:bg-green-700'>
                 <Award05 />
                 Versenyek
+              </Link>
+              <Link href='/webmaster' className='btn bg-blue-800 hover:bg-blue-700'>
+                <Settings01 />
+                Admin
               </Link>
             </div>
           </div>

@@ -19,12 +19,12 @@ export default function IntroductionProgramming() {
                 >
                   Főoldal <Home02 />
                 </Link>
-                <Link
+                {/* <Link
                   href='../login'
                   className='btn bg-green-800 hover:bg-green-700 mx-1'
                 >
                   Bejelentkezés <LogIn02 />
-                </Link>
+                </Link> */}
               </td>
             </tr>
           </tbody>
