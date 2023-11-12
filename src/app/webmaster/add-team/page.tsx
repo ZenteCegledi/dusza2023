@@ -2,6 +2,8 @@
 
 import { useEffect, useState } from 'react';
 import { useUsers } from '@/app/utils/hooks/users';
+import { createTeam } from '@/app/utils/fetchers/teams';
+import { updateUser } from '@/app/utils/fetchers/users';
 
 export default function AddTeam() {
   const usersQuery = useUsers();
@@ -30,18 +32,28 @@ export default function AddTeam() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/teams', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ name, description } as Team),
+    const team = await createTeam({
+      name,
+      description,
     });
-    if (!res.ok) {
-      throw new Error(res.statusText);
+    if (!team) {
+      alert('Hiba történt a csapat létrehozása közben.');
+      return;
     }
-    const data = await res.json();
-    console.log(data);
+
+    const promises = selectedStudents.map((student) =>
+      updateUser({
+        ...student,
+        team: team.id,
+      } as Student)
+    );
+    await Promise.all(promises);
+
+    if (promises.some((promise) => !promise)) {
+      alert('Hiba történt a csapat létrehozása közben.');
+      return;
+    }
+    alert('A csapat sikeresen létre lett hozva.');
   };
 
   return (
