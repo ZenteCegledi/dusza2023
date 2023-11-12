@@ -92,7 +92,7 @@ export async function UpdateUser(user: User) {
     }
 
     switch (user.role) {
-        case Role.TEACHER:
+        case "teacher":
             if (!await prisma.user.update({
                 where: { id: user.id },
                 data: {
@@ -108,7 +108,7 @@ export async function UpdateUser(user: User) {
                 return false;
             }
             break;
-        case Role.STUDENT:
+        case "student":
             if (!await prisma.user.update({
                 where: {id: user.id},
                 data: {
@@ -124,7 +124,7 @@ export async function UpdateUser(user: User) {
                 }
             })) { return false; }
             break;
-        case Role.JURY:
+        case "jury":
             if (!await prisma.user.update({
                 where: {id: user.id},
                 data: {
@@ -179,7 +179,7 @@ export async function UpdateUserRole(user: User) {
             })
 
             switch (user.role) {
-                case Role.TEACHER:
+                case "teacher":
                     await prisma.user.update({
                         where: {id: user.id},
                         data: {
@@ -191,7 +191,7 @@ export async function UpdateUserRole(user: User) {
                         }
                     })
                     break;
-                case Role.STUDENT:
+                case "student":
                     await prisma.user.update({
                         where: {id: user.id},
                         data: {
@@ -205,7 +205,7 @@ export async function UpdateUserRole(user: User) {
                         }
                     })
                     break;
-                case Role.JURY:
+                case "jury":
                     await prisma.user.update({
                         where: {id: user.id},
                         data: {
@@ -221,7 +221,7 @@ export async function UpdateUserRole(user: User) {
             break;
         case "TEACHER":
             switch (user.role) {
-                case Role.TEACHER:
+                case "teacher":
                     await prisma.user.update({
                         where: {id: user.id},
                         data: {
@@ -233,7 +233,7 @@ export async function UpdateUserRole(user: User) {
                         }
                     })
                     break;
-                case Role.STUDENT:
+                case "student":
                     await prisma.user.update({
                         where: {id: user.id},
                         data: {
@@ -247,7 +247,7 @@ export async function UpdateUserRole(user: User) {
                         }
                     })
                     break;
-                case Role.JURY:
+                case "jury":
                     await prisma.user.update({
                         where: {id: user.id},
                         data: {
@@ -263,7 +263,7 @@ export async function UpdateUserRole(user: User) {
             break;
         case "JURY":
             switch (user.role) {
-                case Role.TEACHER:
+                case "teacher":
                     await prisma.user.update({
                         where: {id: user.id},
                         data: {
@@ -275,7 +275,7 @@ export async function UpdateUserRole(user: User) {
                         }
                     })
                     break;
-                case Role.STUDENT:
+                case "student":
                     await prisma.user.update({
                         where: {id: user.id},
                         data: {
@@ -289,7 +289,7 @@ export async function UpdateUserRole(user: User) {
                         }
                     })
                     break;
-                case Role.JURY:
+                case "jury":
                     await prisma.user.update({
                         where: {id: user.id},
                         data: {
@@ -315,17 +315,17 @@ export async function UpdateUserRole(user: User) {
 
 export function CheckUserRoleMatch(roleA : Role, roleB: $Enums.Role) {
     switch (roleA) {
-        case Role.STUDENT:
+        case "student":
             if (roleB == "USER") {
                 return true;
             }
             break;
-        case Role.TEACHER:
+        case "teacher":
             if (roleB == "TEACHER") {
                 return true;
             }
             break;
-        case Role.JURY:
+        case "jury":
             if (roleB == "JURY") {
                 return true;
             }
@@ -363,7 +363,7 @@ export async function GetUsers() {
                    id: dbUser.id,
                    name: dbUser.name,
                    username: dbUser.username,
-                   role: Role.JURY,
+                   role: "jury" as Role.JURY,
                })
                 break;
             case "WEBMASTER":
@@ -371,7 +371,7 @@ export async function GetUsers() {
                     id: dbUser.id,
                     name: dbUser.name,
                     username: dbUser.username,
-                    role: Role.TEACHER,
+                    role: "teacher" as Role.TEACHER,
                 })
                 break;
             case "USER":
@@ -382,7 +382,7 @@ export async function GetUsers() {
                     id: dbUser.id,
                     name: dbUser.name,
                     username: dbUser.username,
-                    role: Role.STUDENT,
+                    role: "student" as Role.STUDENT,
                     team: dbUser.student.teamId,
                     grade: dbUser.student.grade,
                     class: dbUser.student.class
@@ -393,13 +393,13 @@ export async function GetUsers() {
                     id: dbUser.id,
                     name: dbUser.name,
                     username: dbUser.username,
-                    role: Role.TEACHER,
+                    role: "teacher" as Role.TEACHER,
                 })
                 break;
 
         }
-        return users
     }
+    return users
 }
 
 export async function GetUser(id: number) {

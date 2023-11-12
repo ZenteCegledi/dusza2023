@@ -12,6 +12,7 @@ export async function GET(request: Request) {
 export async function PUT(request: Request) {
   const user: User = await request.json();
   await UpdateUser(user);
+  return NextResponse.json({"aha": "a"})
 }
 
 export async function DELETE(request: Request) {
