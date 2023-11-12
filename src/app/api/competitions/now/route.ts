@@ -25,7 +25,6 @@ export async function GET() {
       id: dbCompetition.id,
       name: dbCompetition.name,
       description: dbCompetition.description,
-      grade: fitIntoGrades(dbCompetition.grade),
       tasklist: dbCompetition.taskList[0].id,
       start: dbCompetition.start,
       end: dbCompetition.end,
