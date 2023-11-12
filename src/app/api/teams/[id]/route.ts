@@ -44,6 +44,12 @@ export async function PUT(request: Request) {
 export async function DELETE(request: Request) {
   const id = request.url.slice(request.url.lastIndexOf("/") + 1);
 
+  if (!await prisma.team.findFirst({where: { id: parseInt(id) } } )) {
+    return NextResponse.error()
+  }
+
+  await prisma.team.delete({where: {id: parseInt(id)}})
+
   console.log("Delete team", id);
   return NextResponse.json({ id: parseInt(id) });
 }
