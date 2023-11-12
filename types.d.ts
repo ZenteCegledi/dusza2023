@@ -15,6 +15,11 @@ enum Role {
   JURY = 'jury',
 }
 
+type UserLogin = {
+  username: string,
+  password: string,
+}
+
 type User = {
   id: int;
   name: string;
