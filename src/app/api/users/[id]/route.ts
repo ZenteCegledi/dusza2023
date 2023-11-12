@@ -18,9 +18,11 @@ export async function PUT(request: Request) {
 export async function DELETE(request: Request) {
   const id: User["id"] = request.url.slice(request.url.lastIndexOf("/") + 1);
 
-  console.log("Delete user", id);
+  console.log("Delete user", parseInt(id));
 
-  await DeleteUser(id)
+  if (!await DeleteUser(parseInt(id))) {
+    return NextResponse.error()
+  }
 
   return NextResponse.json({ id: parseInt(id) });
 }

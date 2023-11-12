@@ -336,20 +336,12 @@ export function CheckUserRoleMatch(roleA : Role, roleB: $Enums.Role) {
 }
 
 export async function DeleteUser(userId: number) {
-    if (!await prisma.user.findUnique({
-        where: {id: userId},}
-    )) {
-        return false
+    if (!await prisma.user.findFirst({ where: { id: userId } } )) {
+        console.log("Could not find User with Id: ", userId, "id type:", typeof userId)
     }
 
-    return !prisma.user.delete({
-        where: { id: userId },
-        include: {
-            student: true,
-            teacher: true,
-            jury: true
-        }
-    })
+    await prisma.user.delete( { where: { id: userId }, include: {student: true, jury: true, teacher: true} } )
+    return true
 }
 
 export async function GetUsers() {
