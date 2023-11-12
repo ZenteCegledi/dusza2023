@@ -1,21 +1,10 @@
 import { NextResponse } from "next/server";
 import {fitIntoGrades} from "@/app/utils/grades";
 import prisma from "@/lib/db";
-import db from "@/lib/db";
 
 export async function GET(request: Request) {
   const id: Competition["id"] = request.url.slice(request.url.lastIndexOf("/") + 1);
 
-  const competition: Competition = {
-    id: parseInt(id),
-    name: "Competition 1",
-    description: "Description 1",
-    grade: 5,
-    tasklist: 1,
-    start: new Date(),
-    end: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),
-    teams: [1, 2, 3, 4],
-  };
   const dbCompetition = await prisma.competition.findFirst({ where: { id: parseInt(id) }, include: {teams: true, taskList: true} })
   if (!dbCompetition) { return NextResponse.error() }
   const teams : number[] = []
@@ -24,16 +13,19 @@ export async function GET(request: Request) {
     teams.push(teamID.id)
   }
 
-  if (!dbCompetition.taskList[0]) {
+  const taskList = dbCompetition.taskList.at(0)
+
+  if (!taskList) {
     return NextResponse.error()
   }
+  const taskListID = taskList.id
 
   return NextResponse.json({
     id: dbCompetition.id,
     name: dbCompetition.name,
     description: dbCompetition.description,
     grade: fitIntoGrades(dbCompetition.grade),
-    tasklist: dbCompetition.taskList[0].id,
+    tasklist: taskListID,
     start: dbCompetition.start,
     end: dbCompetition.end,
     teams: teams
@@ -56,13 +48,20 @@ export async function PUT(request: Request) {
     newTeams.push(team)
   }
 
+  const taskList = OriginalDBState.taskList.at(0)
+
+  if (!taskList) {
+    return NextResponse.error()
+  }
+  const taskListID = taskList.id
+
   const comp = await prisma.competition.update({where: {id: competition.id}, data: {
       name: competition.name,
       description: competition.description,
       grade: competition.grade,
       taskList: {
         connect: {id: competition.tasklist},
-        disconnect: {id: OriginalDBState.taskList[0].id}
+        disconnect: {id: taskListID}
       },
       start: competition.start,
       end: competition.end,
