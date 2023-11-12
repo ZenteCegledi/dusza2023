@@ -31,8 +31,6 @@ export default function ManageTaskLists() {
     }
   };
 
-  console.log(tasklists);
-
   return (
     <div className='overflow-x-auto m-5 p-3 bg-base-200 rounded-lg w-full'>
       <table className='table'>

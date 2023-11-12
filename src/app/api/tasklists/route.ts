@@ -4,7 +4,7 @@ import prisma from "@/lib/db";
 export async function GET() {
   const tasklists: TaskList[] = []
 
-  const dbTaskList = await prisma.taskList.findMany({include: {task:true}});
+  const dbTaskList = await prisma.taskList.findMany({ include: { task: true } });
   for (const dbTaskListElement of dbTaskList) {
     const tasksIds: number[] = []
     for (const task of dbTaskListElement.task) {

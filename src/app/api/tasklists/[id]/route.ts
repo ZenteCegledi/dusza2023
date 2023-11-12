@@ -25,6 +25,8 @@ export async function GET(request: Request) {
 export async function PUT(request: Request) {
   const tasklist: TaskList = await request.json();
 
+  console.log(tasklist)
+
   const OriginalDBContent = await prisma.taskList.findFirst({where: {id: tasklist.id}, include: {task: true}})
   if (!OriginalDBContent) { return NextResponse.error() }
   for (const taskElement of OriginalDBContent.task) {

@@ -33,13 +33,15 @@ export default async function Introduction() {
           {me.role === 'student' && (
             <>
               <div className='pl-5'>Csapatod: {team!.name}</div>
-              <div className='pl-10'>
-                Csapattársaid:{' '}
-                {users!
-                  .filter((user) => (user as Student).team === me.team)
-                  .map((user) => user.name)
-                  .join(', ')}
-              </div>
+              {me.team && (
+                <div className='pl-10'>
+                  Csapattársaid:{' '}
+                  {users!
+                    .filter((user) => (user as Student).team === me.team)
+                    .map((user) => user.name)
+                    .join(', ')}
+                </div>
+              )}
             </>
           )}
         </div>
