@@ -56,6 +56,8 @@ export default function AddTask() {
         creatorTeacher: 1,
       };
 
+      const valid = validateTask(task);
+
       if (!valid) {
         alert(
           'Kérlek ellenőrizd, hogy minden feladat megfelelően lett megadva!'
@@ -64,13 +66,6 @@ export default function AddTask() {
       }
 
       await createTask(task);
-    }
-
-    if (results.some((result) => !result)) {
-      alert(
-        'Hiba történt a feladatok feltöltése közben. Kérlek ellenőrizd, hogy minden feladat megfelelően lett megadva!'
-      );
-      return;
     }
 
     alert('Sikeresen feltöltötted a feladatokat!');
