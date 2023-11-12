@@ -61,6 +61,11 @@ export default function ChangeTeam({ params }: { params: { id: Team['id'] } }) {
     };
     const res = await updateTeam(team);
 
+    if (!res) {
+      alert('Hiba történt a csapat módosítása közben.');
+      return;
+    }
+
     const oldStudents = usersQuery.users?.filter(
       (user) => (user as Student).team === id
     );
