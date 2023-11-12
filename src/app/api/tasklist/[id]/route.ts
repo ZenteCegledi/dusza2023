@@ -22,14 +22,31 @@ export async function GET(request: Request) {
 }
 
 export async function PUT(request: Request) {
-  const task: Task = await request.json();
+  const tasklist: TaskList = await request.json();
 
-  console.log("Task", task);
-  return NextResponse.json(task);
+  const OriginalDBContent = await prisma.taskList.findFirst({where: {id: tasklist.id}, include: {task: true}})
+  if (!OriginalDBContent) { return NextResponse.error() }
+  for (const taskElement of OriginalDBContent.task) {
+    await prisma.task.update({where: { id: taskElement.id }, data: { taskListId: null} }) // unassign tasks
+  }
+
+  for (const taskId of tasklist.tasks) {
+    await prisma.task.update({ where: { id: taskId }, data: { taskListId: tasklist.id} })
+  }
+
+  await prisma.taskList.update({
+    where: { id: tasklist.id },
+    data: {
+      name: tasklist.name
+    }
+  })
+
+  console.log("TaskList", tasklist);
+  return NextResponse.json(tasklist);
 }
 
 export async function DELETE(request: Request) {
-  const id: Task["id"] = request.url.slice(request.url.lastIndexOf("/") + 1);
+  const id: TaskList["id"] = request.url.slice(request.url.lastIndexOf("/") + 1);
 
   await prisma.taskList.delete({where: {id: parseInt(id)}})
 
