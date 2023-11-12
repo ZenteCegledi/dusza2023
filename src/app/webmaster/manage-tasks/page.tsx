@@ -8,14 +8,19 @@ import {
 } from '@untitled-ui/icons-react';
 import Link from 'next/link';
 import { useTasks } from '@/app/utils/hooks/tasks';
+import { useTasklists } from '@/app/utils/hooks/tasklists';
 import { deleteTask } from '@/app/utils/fetchers/tasks';
 
 export default function ManageTasks() {
-  const { tasks, isLoading, isError } = useTasks();
+  const tasksQuery = useTasks();
+  const tasklistsQuery = useTasklists();
 
-  if (isLoading) return <div>Betöltés...</div>;
-  if (isError) return <div>Hiba történt a feladatok betöltése közben.</div>;
-  if (!tasks) return <div>Nincsenek feladatok</div>;
+  if (tasksQuery.isLoading || tasklistsQuery.isLoading) return <div>Betöltés...</div>;
+  if (tasksQuery.isError) return <div>Hiba történt a feladatok betöltése közben.</div>;
+  if (tasklistsQuery.isError) return <div>Hiba történt a feladatsorok betöltése közben.</div>;
+  if (!tasksQuery.tasks) return <div>Nincsenek feladatok</div>;
+
+  const tasks = tasksQuery.tasks;
 
   const handleDeleteTask = async (id: number) => {
     const success = await deleteTask(id);
@@ -69,7 +74,7 @@ export default function ManageTasks() {
               <td>{task.words.join(', ')}</td>
               <td>{task.grade}</td>
               <td>{task.creatorTeacher}</td>
-              <td>((Feladatsor))</td>
+              <td>{tasklistsQuery.tasklists?.find((tasklist) => tasklist.id === task.id)?.name}</td>
 
               <td>
                 <Link className='btn bg-yellow-900 hover:bg-yellow-700 mr-2 px-3' href={`/webmaster/change-task/${task.id}`}>

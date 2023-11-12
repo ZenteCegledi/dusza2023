@@ -1,12 +1,48 @@
-import Link from 'next/link';
+'use client';
+
+import { useState } from 'react';
+import { createTasklist } from '@/app/utils/fetchers/tasklists';
+import { useTasks } from '@/app/utils/hooks/tasks';
 
 export default function CreateTasklist() {
+  const { tasks, isLoading, isError } = useTasks();
+
+  const [name, setName] = useState('');
+  const [selectedTasks, setSelectedTasks] = useState<Task['id'][]>([]);
+
+  const handleSubmit = async ({
+    name,
+    tasks,
+  }: {
+    name: TaskList['name'];
+    tasks: TaskList['tasks'];
+    }) => {
+    if (tasks.length === 0 || tasks.length % 3 !== 0) {
+      alert('A feladatsorban lévő feladatok számának 3-mal oszthatónak kell lennie!');
+      return;
+    }
+    
+    await createTasklist({
+      name,
+      tasks,
+    });
+  };
+
+  if (isLoading) return <div>Betöltés...</div>;
+  if (isError) return <div>Hiba történt a feladatok betöltése közben.</div>;
+
   return (
-    <div className='w-full p-6 m-auto bg-black rounded-md shadow-md lg:max-w-lg bg-gray-900'>
+    <div className='w-full p-6 m-auto rounded-md shadow-md lg:max-w-lg bg-gray-900'>
       <h1 className='text-3xl font-semibold text-center text-white-700 pb-3 px-5'>
         Feladatsor létrehozása
       </h1>
-      <form className='space-y-4'>
+      <form
+        className='space-y-4'
+        onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit({ name, tasks: selectedTasks });
+        }}
+      >
         <hr className=' h-px my-2 bg-gray-200 border-0 dark:bg-gray-700' />
         <div className='pb-5'>
           <label className='label'>
@@ -17,10 +53,12 @@ export default function CreateTasklist() {
             placeholder=''
             className='w-full input input-bordered'
             required
+            value={name}
+            onChange={(e) => setName(e.target.value)}
           />
         </div>
 
-        <div className='pb-2'>
+        {/* <div className='pb-2'>
           <label className='label'>
             <span className='text-base label-text'>Osztály</span>
           </label>
@@ -30,25 +68,38 @@ export default function CreateTasklist() {
             <option>7</option>
             <option>8</option>
           </select>
-        </div>
+        </div> */}
         <hr className=' h-px my-2 bg-gray-200 border-0 dark:bg-gray-700' />
         <div className='form-control'>
-          <label className='cursor-pointer label'>
-            <span className='label-text'>barack, szőlő, körte, szilva</span>
-            <input type='checkbox' className='checkbox checkbox-info' />
-          </label>
-          <label className='cursor-pointer label'>
-            <span className='label-text'>
-              egér, billentyűzet, kamera, nyomtató
-            </span>
-            <input type='checkbox' className='checkbox checkbox-info' />
-          </label>
+          <div className='flex flex-col'>
+            {tasks!.map((task) => (
+              <label
+                key={task.id}
+                className='cursor-pointer label flex items-center'
+              >
+                <span className='label-text'>{task.words.join(', ')}</span>
+                <input
+                  type='checkbox'
+                  className='checkbox checkbox-info'
+                  checked={selectedTasks.includes(task.id)}
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setSelectedTasks([...selectedTasks, task.id]);
+                    } else {
+                      setSelectedTasks(
+                        selectedTasks.filter((id) => id !== task.id)
+                      );
+                    }
+                  }}
+                />
+              </label>
+            ))}
+          </div>
         </div>
         <hr className=' h-px my-2 bg-gray-200 border-0 dark:bg-gray-700' />
-        <div className='pt-1'>Kiválasztott feladatok száma: X</div>
+        <div className='pt-1'>Kiválasztott feladatok száma: {selectedTasks.length}</div>
         <div className='pt-1'>
-          {/* Létrehozás csak abban az esetben, ha a kiválasztott feladatok száma osztható 3-mal és nagyobb mint 0! */}
-          <button className='btn w-full bg-green-900 hover:bg-green-700  '>
+          <button className='btn w-full bg-green-900 hover:bg-green-700'>
             Feladatsor létrehozása
           </button>
         </div>

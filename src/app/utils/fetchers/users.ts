@@ -20,6 +20,16 @@ export async function fetchUser(id: User['id']): Promise<User> {
   return await res.json();
 }
 
+export async function fetchMe(): Promise<User> {
+  const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/users/me', {
+    cache: 'no-cache',
+  });
+  if (!res.ok) {
+    throw new Error(res.statusText);
+  }
+  return await res.json();
+}
+
 export async function createUser(user: User): Promise<User> {
   const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/api/users', {
     method: 'POST',

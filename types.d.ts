@@ -5,6 +5,11 @@ type Settings = {
   icon: string;
 };
 
+type Intro = {
+  title: string;
+  description: string;
+};
+
 enum Role {
   STUDENT = 'student',
   TEACHER = 'teacher',

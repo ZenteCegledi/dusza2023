@@ -8,6 +8,7 @@ export async function GET(request: Request) {
     id: parseInt(id),
     words: ["word1", "word2", "word3", "word4"],
     grade: 5,
+    creatorTeacher: 1,
   };
 
   return NextResponse.json(task);

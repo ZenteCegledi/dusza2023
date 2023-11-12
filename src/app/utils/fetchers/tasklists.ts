@@ -23,6 +23,21 @@ export async function fetchTasklist(id: TaskList["id"]): Promise<TaskList> {
   return await res.json();
 }
 
+export async function createTasklist(
+  tasklist: Omit<TaskList, "id">
+): Promise<TaskList> {
+  const res = await fetch(process.env.NEXT_PUBLIC_API_URL + "/api/tasklists", {
+    method: "POST",
+    cache: "no-cache",
+    body: JSON.stringify(tasklist),
+  });
+  mutate("tasklists");
+  if (!res.ok) {
+    throw new Error(res.statusText);
+  }
+  return await res.json();
+}
+
 export async function updateTasklist(
   tasklist: TaskList
 ): Promise<TaskList> {
@@ -38,7 +53,7 @@ export async function updateTasklist(
   return await res.json();
 }
 
-export async function deleteTasklist(id: TaskList["id"]): Promise<TaskList["id"]> {
+export async function deleteTasklist(id: TaskList["id"]): Promise<boolean> {
   const res = await fetch(
     process.env.NEXT_PUBLIC_API_URL + `/api/tasklists/${id}`,
     {
@@ -51,5 +66,5 @@ export async function deleteTasklist(id: TaskList["id"]): Promise<TaskList["id"]
   if (!res.ok) {
     throw new Error(res.statusText);
   }
-  return await res.json();
+  return true;
 }

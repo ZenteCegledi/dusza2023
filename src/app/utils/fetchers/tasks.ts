@@ -33,7 +33,7 @@ export async function updateTask(task: Task): Promise<Task> {
   return await res.json();
 }
 
-export async function deleteTask(id: Task['id']): Promise<Task['id']> {
+export async function deleteTask(id: Task['id']): Promise<boolean> {
   const res = await fetch(process.env.NEXT_PUBLIC_API_URL + `/api/tasks/${id}`, {
     method: 'DELETE',
     cache: 'no-cache',
@@ -43,5 +43,5 @@ export async function deleteTask(id: Task['id']): Promise<Task['id']> {
   if (!res.ok) {
     throw new Error(res.statusText);
   }
-  return await res.json();
+  return true;
 }
