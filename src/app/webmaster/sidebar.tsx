@@ -14,6 +14,7 @@ import {
   LogOut01,
   Home02,
   FilePlus02,
+  CalendarPlus01,
 } from '@untitled-ui/icons-react';
 import { fetchSettings } from '@/app/utils/fetchers/settings';
 import { fetchCurrentCompetitions } from '@/app/utils/fetchers/competitions';
@@ -98,6 +99,12 @@ export default async function Sidebar() {
         <Link href="/webmaster/manage-contests">
           <Flag01 />
           Versenyek kezelése
+        </Link>
+      </li>
+      <li className='pl-5'>
+        <Link href="/webmaster/add-contest">
+          <CalendarPlus01 />
+          Verseny hozzáadása
         </Link>
       </li>
       <li className='pl-5'>
