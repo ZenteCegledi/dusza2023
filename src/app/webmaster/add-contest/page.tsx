@@ -78,14 +78,14 @@ export default function AddContest() {
     if (success) {
       alert('Sikeresen létrehoztad a versenyt!');
     } else {
-      alert('Hiba történt a verseny létrehozása közben!');
+      alert('Hiba történt a verseny hozzáadása közben!');
     }
   }
 
   return (
     <div className='w-full p-6 m-auto rounded-md shadow-md lg:max-w-lg bg-gray-900'>
       <h1 className='text-3xl font-semibold text-center text-white-700 pb-5 pt-4 px-8'>
-        Verseny létrehozása
+        Verseny hozzáadása
       </h1>
       <form className='space-y-4' onSubmit={handleSubmit}>
         <hr className=' h-px my-2 bg-gray-200 border-0 dark:bg-gray-700' />
@@ -286,7 +286,7 @@ export default function AddContest() {
             className='btn w-full bg-green-900 hover:bg-green-700'
             type='submit'
           >
-            Verseny létrehozása
+            Verseny hozzáadása
           </button>
         </div>
       </form>

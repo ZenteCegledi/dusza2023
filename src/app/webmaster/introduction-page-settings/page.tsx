@@ -5,6 +5,7 @@ import { useIntro } from '@/app/utils/hooks/intro';
 import { updateIntro } from '@/app/utils/fetchers/intro';
 
 export default function IntroductionSettings() {
+
   const { intro, isLoading, isError } = useIntro();
 
   const [title, setTitle] = useState('');
