@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { validateTask } from "../validate";
+import { validateTask } from "../../../utils/others";
 
 export async function GET(request: Request) {
   const id: Task["id"] = request.url.slice(request.url.lastIndexOf("/") + 1);

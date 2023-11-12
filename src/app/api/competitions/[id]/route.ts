@@ -7,7 +7,6 @@ export async function GET(request: Request) {
     id: parseInt(id),
     name: "Competition 1",
     description: "Description 1",
-    grade: 5,
     tasklist: 1,
     start: new Date(),
     end: new Date(Date.now() + 1000 * 60 * 60 * 24 * 7),

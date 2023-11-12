@@ -1,5 +1,5 @@
 import { NextResponse } from 'next/server';
-import { validateTask } from './validate';
+import { validateTask } from '@/app/utils/others';
 
 export async function GET() {
   const tasks: Task[] = [

@@ -23,7 +23,7 @@ export default function ChangeSiteSettings() {
   if (isError) return <div>Hiba történt a beállítások betöltése közben.</div>;
   if (!settings)
     return <div>Nincsenek beállítások (ennek nem kéne megtörténnie)</div>;
-  
+
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     await updateSettings({
@@ -32,7 +32,7 @@ export default function ChangeSiteSettings() {
       slogan,
       icon,
     });
-  }
+  };
 
   return (
     <div className='w-full p-6 m-auto rounded-md shadow-md lg:max-w-lg bg-gray-900'>

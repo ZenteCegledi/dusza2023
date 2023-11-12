@@ -46,12 +46,12 @@ type Team = {
   description: string;
 };
 
-type Grades = 5 | 6 | 7 | 8;
+type Grade = 5 | 6 | 7 | 8;
 
 type Task = {
   id: int;
   words: string[];
-  grade: Grades;
+  grade: Grade;
   creatorTeacher: Teacher['id'];
 };
 
