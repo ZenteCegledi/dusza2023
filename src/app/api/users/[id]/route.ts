@@ -6,6 +6,8 @@ export async function GET(request: Request) {
 
   const user = await GetUser(id);
 
+  console.log("Get user", user);
+
   return NextResponse.json(user);
 }
 

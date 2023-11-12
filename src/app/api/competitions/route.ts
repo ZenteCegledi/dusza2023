@@ -21,7 +21,7 @@ export async function GET() {
       id: dbCompetition.id,
       name: dbCompetition.name,
       description: dbCompetition.description,
-      grade: fitIntoGrades(dbCompetition.grade),
+      //grade: fitIntoGrades(dbCompetition.grade),
       tasklist: dbCompetition.taskList[0].id,
       start: dbCompetition.start,
       end: dbCompetition.end,
@@ -39,7 +39,7 @@ export async function POST(request: Request) {
     data: {
       name: competition.name,
       description: competition.description,
-      grade: competition.grade as number,
+      grade: 5,
       start: competition.start,
       end: competition.end,
       taskList: {

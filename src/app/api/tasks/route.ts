@@ -1,5 +1,5 @@
 import { NextResponse } from "next/server";
-import { validateTask } from "./validate";
+import { validateTask } from "@/app/utils/others";
 import prisma from "@/lib/db";
 import {fitIntoGrades} from "@/app/utils/grades";
 
@@ -16,7 +16,7 @@ export async function GET() {
       words.push(word.word)
     }
 
-    const task : Task = {id: dbTask.id, grade: fitIntoGrades(dbTask.grade), words: words}
+    const task : Task = {id: dbTask.id, grade: fitIntoGrades(dbTask.grade), words: words, creatorTeacher: 1}
     tasks.push(task)
   }
 

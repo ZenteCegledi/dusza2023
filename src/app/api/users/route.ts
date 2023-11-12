@@ -17,5 +17,5 @@ export async function POST(request: Request) {
   }
 
   await CreateUser(user, user.password)
-  return NextResponse.json({"ok": true})
+  return NextResponse.json(user);
 }

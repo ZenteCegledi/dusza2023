@@ -20,7 +20,7 @@ export default function AddUser() {
     grade: Student['grade'];
     class: Student['class'];
   }) => {
-    await createUser({
+    const user = await createUser({
       name,
       username,
       password,
@@ -28,6 +28,14 @@ export default function AddUser() {
       grade: role === 'student' ? grade : undefined,
       class: role === 'student' ? class_ : undefined,
     } as Student);
+
+    if (!user) {
+      alert('Hiba történt a felhasználó hozzáadása közben!');
+      return;
+    } else {
+      alert('Sikeresen hozzáadtad a felhasználót!');
+      return;
+    }
   };
 
   return (

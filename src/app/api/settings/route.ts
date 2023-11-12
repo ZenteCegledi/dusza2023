@@ -20,7 +20,7 @@ export async function GET() {
    }));
   }
 
-  return NextResponse.json(settings);
+  return NextResponse.json(result);
 }
 
 export async function PUT(request: Request) {
@@ -34,7 +34,6 @@ export async function PUT(request: Request) {
     where: { id: 0},
     data: {
       name: settings.name,
-      descriprion: settings.description,
       slogan: settings.slogan,
       icon: settings.icon
     }
