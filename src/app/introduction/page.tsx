@@ -14,11 +14,9 @@ export default async function Introduction() {
   let users = null;
   let team = null;
   if (me.role === 'student') {
-    [currentCompetitions, users, team] = await Promise.all([
-      fetchCurrentCompetitions(),
-      fetchUsers(),
-      fetchTeam(me.team),
-    ]);
+    currentCompetitions = await fetchCurrentCompetitions();
+    users = await fetchUsers();
+    team = await fetchTeam(me.team);
   }
 
   const nextCompetition = currentCompetitions?.sort(

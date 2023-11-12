@@ -56,8 +56,6 @@ export default function AddTask() {
         creatorTeacher: 1,
       };
 
-      const valid = validateTask(task);
-
       if (!valid) {
         alert(
           'Kérlek ellenőrizd, hogy minden feladat megfelelően lett megadva!'
@@ -65,10 +63,8 @@ export default function AddTask() {
         return;
       }
 
-      functions.push(createTask(task));
+      await createTask(task);
     }
-
-    const results = await Promise.all(functions);
 
     if (results.some((result) => !result)) {
       alert(

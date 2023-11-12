@@ -28,12 +28,12 @@ export default async function Sidebar() {
     <ul className='menu p-4 w-80 min-h-full bg-base-200 text-base-content'>
       <a className='btn btn-ghost normal-case text-xl'>{settings.name}</a>
       <b className='pt-5 pb-2'>Webmester</b>
-      <li>
+      {/* <li>
         <Link href="/webmaster/statistics">
           <PieChart01 />
           Statisztikák
         </Link>
-      </li>
+      </li> */}
       <li>
         <Link href='/webmaster/change-site'>
           <Edit03 />

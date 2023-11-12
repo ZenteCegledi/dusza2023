@@ -41,18 +41,14 @@ export default function AddTeam() {
       return;
     }
 
-    const promises = selectedStudents.map((student) =>
-      updateUser({
+    for (const student of selectedStudents) {
+      await updateUser({
         ...student,
         team: team.id,
-      } as Student)
-    );
-    await Promise.all(promises);
-
-    if (promises.some((promise) => !promise)) {
-      alert('Hiba történt a csapat létrehozása közben.');
-      return;
+      } as Student);
     }
+
+    console.log("hibakezelés is kéne ig")
     alert('A csapat sikeresen létre lett hozva.');
   };
 

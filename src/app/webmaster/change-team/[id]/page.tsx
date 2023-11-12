@@ -70,8 +70,6 @@ export default function ChangeTeam({ params }: { params: { id: Team['id'] } }) {
       (user) => (user as Student).team === id
     );
 
-    const removeFunctions = [];
-
     // remove team from old students
     for (const student of oldStudents || []) {
       const user: Student = {
@@ -81,17 +79,8 @@ export default function ChangeTeam({ params }: { params: { id: Team['id'] } }) {
         team: null,
         role: student.role as Student['role'],
       } as Student;
-      removeFunctions.push(updateUser(user));
+      await updateUser(user);
     }
-
-    const results1 = await Promise.all(removeFunctions);
-
-    if (results1.some((result) => !result)) {
-      alert('Hiba történt a csapat módosítása közben.');
-      return;
-    }
-
-    const addFunctions = [];
 
     for (const student of selectedStudents) {
       const user: Student = {
@@ -101,15 +90,9 @@ export default function ChangeTeam({ params }: { params: { id: Team['id'] } }) {
         team: team.id,
         role: student.role as Student['role'],
       } as Student;
-      addFunctions.push(updateUser(user));
+      await updateUser(user);
     }
-
-    await Promise.all(addFunctions);
-  
-    if (results1.some((result) => !result)) {
-      alert('Hiba történt a csapat módosítása közben.');
-      return;
-    }
+    
     alert('Csapat sikeresen módosítva.');
   };
 
