@@ -1,3 +1,4 @@
+import { List } from '@untitled-ui/icons-react';
 import Sidebar from './sidebar';
 
 export default function WebmasterLayout({
@@ -6,14 +7,14 @@ export default function WebmasterLayout({
   children: React.ReactNode;
 }) {
   return (
-    <div className='flex justify-start'>
+    <div className='lg:flex lg:justify-start '>
       <div className='drawer lg:drawer-open w-fit z-50'>
         <input id='my-drawer-2' type='checkbox' className='drawer-toggle' />
         <label
           htmlFor='my-drawer-2'
-          className='btn btn-primary drawer-button lg:hidden'
+          className='btn btn-base-100 drawer-button lg:hidden w-screen'
         >
-          Oldalsáv
+          <List /> Menü
         </label>
         <div className='drawer-side'>
           <label
