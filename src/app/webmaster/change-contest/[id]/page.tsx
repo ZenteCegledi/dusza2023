@@ -37,7 +37,7 @@ export default function EditContest({ params }: { params: { id: Competition['id'
           tasklist.name.toLowerCase().includes(searchTasklist.toLowerCase())
       )
     );
-  }, [searchTasklist, tasklistsQuery.tasklists]);
+  }, [searchTasklist, selectedTasklists, tasklistsQuery.tasklists]);
 
   useEffect(() => {
     if (!teamsQuery.teams) return;
@@ -48,7 +48,7 @@ export default function EditContest({ params }: { params: { id: Competition['id'
           team.name.toLowerCase().includes(searchTeam.toLowerCase())
       )
     );
-  }, [searchTeam, teamsQuery.teams]);
+  }, [searchTeam, selectedTeams, teamsQuery.teams]);
 
   useEffect(() => {
     if (!competitionQuery.competition) return;

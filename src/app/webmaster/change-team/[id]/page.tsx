@@ -28,7 +28,7 @@ export default function ChangeTeam({ params }: { params: { id: Team['id'] } }) {
         usersQuery.users.filter((user) => (user as Student).team === id)
       );
     }
-  }, [teamQuery.team]);
+  }, [id, teamQuery.team, usersQuery.users]);
 
   useEffect(() => {
     if (!usersQuery.users) return;

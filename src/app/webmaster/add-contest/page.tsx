@@ -33,7 +33,7 @@ export default function AddContest() {
           tasklist.name.toLowerCase().includes(searchTasklist.toLowerCase())
       )
     );
-  }, [searchTasklist, tasklistsQuery.tasklists]);
+  }, [searchTasklist, selectedTasklists, tasklistsQuery.tasklists]);
 
   useEffect(() => {
     if (!teamsQuery.teams) return;
