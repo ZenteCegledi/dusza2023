@@ -1,13 +1,12 @@
 import { NextResponse } from "next/server";
 
 export async function GET(request: Request) {
-  const id: Task["id"] = request.url.slice(request.url.lastIndexOf("/") + 1);
+  const id: TaskList["id"] = request.url.slice(request.url.lastIndexOf("/") + 1);
 
-  const task: Task = {
+  const task: TaskList = {
     id: parseInt(id),
-    words: ["word1", "word2", "word3", "word4"],
-    grade: 5,
-    creatorTeacher: 1,
+    name: "TaskList 1",
+    tasks: [1, 2, 3, 4],
   };
 
   return NextResponse.json(task);

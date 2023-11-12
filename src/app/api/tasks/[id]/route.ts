@@ -21,7 +21,7 @@ export async function PUT(request: Request) {
     return NextResponse.error();
   }
 
-  console.log("Task", task);
+  console.log('Task', task);
 
   return NextResponse.json(task);
 }
