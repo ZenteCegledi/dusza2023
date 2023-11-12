@@ -1,12 +1,17 @@
 import { NextResponse } from "next/server";
+import prisma from "@/lib/db";
 
 export async function GET() {
-  const teams: Team[] = [
-    { id: 1, name: "Team 1", description: "Description 1" },
-    { id: 2, name: "Team 2", description: "Description 2" },
-    { id: 3, name: "Team 3", description: "Description 3" },
-    { id: 4, name: "Team 4", description: "Description 4" },
-  ]
+  const teams: Team[] = []
+
+  const teamsInDb = await prisma.team.findMany();
+  for (const teamsInDbElement of teamsInDb) {
+    teams.push({
+      id: teamsInDbElement.id,
+      name: teamsInDbElement.name,
+      description: teamsInDbElement.description
+    })
+  }
 
   return NextResponse.json(teams);
 }
