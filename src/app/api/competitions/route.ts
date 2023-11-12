@@ -62,6 +62,6 @@ export async function POST(request: Request) {
     })
   }
 
-  console.log('Competition', competition);
-  return NextResponse.json(competition);
+  console.log('Competition', comp);
+  return NextResponse.json(comp);
 }
