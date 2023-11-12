@@ -8,13 +8,11 @@ export default function ChangeSiteSettings() {
   const { settings, isLoading, isError } = useSettings();
 
   const [name, setName] = useState(settings?.name ?? '');
-  const [description, setDescription] = useState(settings?.description ?? '');
   const [slogan, setSlogan] = useState(settings?.slogan ?? '');
   const [icon, setIcon] = useState(settings?.icon ?? '');
 
   useEffect(() => {
     setName(settings?.name ?? '');
-    setDescription(settings?.description ?? '');
     setSlogan(settings?.slogan ?? '');
     setIcon(settings?.icon ?? '');
   }, [settings]);
@@ -28,7 +26,6 @@ export default function ChangeSiteSettings() {
     e.preventDefault();
     await updateSettings({
       name,
-      description,
       slogan,
       icon,
     });
@@ -70,18 +67,6 @@ export default function ChangeSiteSettings() {
             required
             value={slogan}
             onChange={(e) => setSlogan(e.target.value)}
-          ></textarea>
-        </div>
-        <div>
-          <label className='label'>
-            <span className='text-base label-text'>Weboldal leírása</span>
-          </label>
-          <textarea
-            className='textarea textarea-bordered w-full h-40'
-            placeholder='Ezen az oldalon versenyeket bonyolíthatsz le, amelyeken különböző csapatok vehetnek részt.'
-            required
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
           ></textarea>
         </div>
 

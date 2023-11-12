@@ -1,7 +1,6 @@
 type Settings = {
   name: string;
   slogan: string;
-  description: string;
   icon: string;
 };
 
@@ -70,3 +69,18 @@ type Competition = {
   tasklist: TaskList['id'];
   teams: Team['id'][];
 };
+
+type SubmitResult = {
+  id: int;
+  competition: Competition['id'];
+  solutions: string[];
+  correctNumber: number;
+  wrongNumber: number;
+  team: Team['id'];
+  date: Date;
+}
+
+type SubmitInput = {
+  competition: Competition['id'];
+  solutions: string[];
+}

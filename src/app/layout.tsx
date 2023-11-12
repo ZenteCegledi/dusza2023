@@ -8,7 +8,7 @@ const settings = await fetchSettings()
 
 export const metadata = {
   title: settings?.name ?? 'Loading...',
-  description: settings?.description ?? 'Loading...',
+  description: settings?.slogan ?? 'Loading...',
 }
 
 export default function RootLayout({

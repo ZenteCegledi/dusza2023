@@ -1,16 +1,17 @@
 import { Home02, LogIn02 } from '@untitled-ui/icons-react';
 import { fetchIntro } from './utils/fetchers/intro';
+import { fetchSettings } from './utils/fetchers/settings';
 import Link from 'next/link';
 
 export default async function Home() {
-  const intro = await fetchIntro();
+  const settings = await fetchSettings();
 
   return (
     <>
       <div className='mx-auto bg-base-100'>
         <div className='items-center relative flex flex-col justify-center h-screen overflow-hidden'>
-          <h1 className='text-6xl font-bold pb-12 pt-10'>{intro.title}</h1>
-          <p className='text-3xl'>{intro.description}</p>
+          <h1 className='text-6xl font-bold pb-12 pt-10'>{settings.name}</h1>
+          <p className='text-3xl'>{settings.slogan}</p>
           <div className='mt-10 mb-20'>
             <Link
               className='btn bg-blue-600 hover:bg-blue-800 pl-10 pr-10 mr-5 text-white'

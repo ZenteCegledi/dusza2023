@@ -11,19 +11,19 @@ export async function GET() {
     },
     {
       id: 2,
-      words: ['word1', 'word2', 'word3', 'word4'],
+      words: ['word1', 'word2', 'word3', 'word47'],
       grade: 5,
       creatorTeacher: 1,
     },
     {
       id: 3,
-      words: ['word1', 'word2', 'word3', 'word4'],
+      words: ['word1', 'word2', 'word3', 'word46'],
       grade: 5,
       creatorTeacher: 1,
     },
     {
       id: 4,
-      words: ['word1', 'word2', 'word3', 'word4'],
+      words: ['word1', 'word2', 'word3', 'word44'],
       grade: 5,
       creatorTeacher: 1,
     },
