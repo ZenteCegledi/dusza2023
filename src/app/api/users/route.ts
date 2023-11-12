@@ -1,30 +1,21 @@
 import { NextResponse } from "next/server";
+import prisma, {CreateUser, GetUsers} from "@/lib/db";
 
 export async function GET() {
-  const students: User[] = [
-    { id: 1, name: "John", role: "student" as Role.STUDENT, grade: 5, class: "A", username: "john", team: 1 },
-    { id: 2, name: "Jane", role: "student" as Role.STUDENT, grade: 5, class: "A", username: "jane" },
-    { id: 3, name: "Mr. Teacher", role: "teacher" as Role.TEACHER, username: "teacher" },
-    { id: 4, name: "Mrs. Jury", role: "jury" as Role.JURY, username: "jury" },
-  ];
+  const users = await GetUsers()
+  if (!users) {
+    return NextResponse.error()
+  }
 
-  return NextResponse.json(students);
+  return NextResponse.json(users);
 }
 
 export async function POST(request: Request) {
-  const user: Omit<User, "id"> = await request.json();
-
-  switch (user.role) {
-    case "student":
-      console.log("Student", user);
-      return NextResponse.json(user);
-    case "teacher":
-      console.log("Teacher", user);
-      return NextResponse.json(user);
-    case "jury":
-      console.log("Jury", user);
-      return NextResponse.json(user);
-    default:
-      return NextResponse.error();
+  const user: User = await request.json();
+  if (!user.password){
+    return NextResponse.error()
   }
+
+  await CreateUser(user, user.password)
+  return NextResponse.json({"ok": true})
 }
